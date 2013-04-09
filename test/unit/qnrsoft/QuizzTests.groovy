@@ -11,7 +11,9 @@ import org.junit.*
 @TestFor(Quizz)
 class QuizzTests {
 
-    void testSomething() {
-       fail "Implement me"
+    void testConstraints() {
+       def q = new Quizz()
+	   
+	   assert !q.validate()
     }
 }

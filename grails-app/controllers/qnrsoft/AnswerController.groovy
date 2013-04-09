@@ -2,5 +2,5 @@ package qnrsoft
 
 class AnswerController {
 
-    def index() { }
+    def scaffold = Answer
 }

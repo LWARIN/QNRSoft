@@ -2,5 +2,5 @@ package qnrsoft
 
 class QuizzController {
 
-    def index() { }
+    def scaffold = Quizz
 }

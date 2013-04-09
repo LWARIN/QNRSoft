@@ -11,7 +11,7 @@ class Quizz {
 	String question
 	boolean onScreen
 	State state
-	static hasMany = [answers: Answer]
+	static hasMany = [answers : Answer]
 
     static constraints = {
 		question blank: false

@@ -2,5 +2,5 @@ package qnrsoft
 
 class StudentController {
 
-    def index() { }
+    def scaffold = Student
 }
