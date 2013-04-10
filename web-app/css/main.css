@@ -261,10 +261,11 @@ select[multiple] {
 }
 
 textarea {
-	width: 250px;
+	width: 500px;
 	height: 150px;
 	overflow: auto; /* IE always renders vertical scrollbar without this */
 	vertical-align: top;
+	resize: none;
 }
 
 input[type=checkbox], input[type=radio] {
