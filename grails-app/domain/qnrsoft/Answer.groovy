@@ -3,20 +3,26 @@ package qnrsoft
 class Answer {
 	
 	enum Status {
-		APPROVED,
-		REJECTED
+		Pending,
+		Approved,
+		Rejected
 	}
 	
 	enum Validity {
-		CORRECT,
-		WRONG
+		Pending,
+		Correct,
+		Wrong
 	}
 	
 	String answer
 	Status status
 	Validity validity
 	String comment
+	
+	Quizz quizz
 
     static constraints = {
+		answer blank : false
+		comment blank : true
     }
 }
