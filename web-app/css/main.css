@@ -239,6 +239,11 @@ fieldset,
 	margin-left: 27%;
 }
 
+.addfield {
+	margin-left: 40%;
+	font-size: 1.3em;
+}
+
 label {
 	cursor: pointer;
 	display: inline-block;
@@ -262,7 +267,7 @@ select[multiple] {
 
 textarea {
 	width: 500px;
-	height: 150px;
+	height: 75px;
 	overflow: auto; /* IE always renders vertical scrollbar without this */
 	vertical-align: top;
 	resize: none;

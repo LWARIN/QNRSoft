@@ -36,11 +36,7 @@
 	
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: answerInstance, field: 'quizz', 'error')} required">
-	<label for="quizz">
-		<g:message code="answer.quizz.label" default="Quizz" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="quizz" name="quizz.id" from="${qnrsoft.Quizz.list()}" optionKey="id" required="" value="${answerInstance?.quizz?.id}" class="many-to-one"/>
-</div>
+<%-- Le quizz correspondant à la réponse (on le cache) --%>
+<g:hiddenField id="quizz" name="quizz.id" from="${qnrsoft.Quizz.list()}" optionKey="id" required="" value="${answerInstance?.quizz?.id}" class="many-to-one"/>
+
 

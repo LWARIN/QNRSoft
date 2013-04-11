@@ -28,7 +28,7 @@
 					<span id="answer-label" class="property-label"><g:message code="answer.answer.label" default="Answer" /></span>
 					
 						<%-- <span class="property-value" aria-labelledby="answer-label"><g:fieldValue bean="${answerInstance}" field="answer"/></span> --%>
-						<textarea><g:fieldValue bean="${answerInstance}" field="answer"/></textarea>
+						<span class="property-value" aria-labelledby="answer-label"><textarea readonly><g:fieldValue bean="${answerInstance}" field="answer"/></textarea></span>
 					
 				</li>
 				</g:if>

@@ -28,7 +28,8 @@
 				<li class="fieldcontain">
 					<span id="question-label" class="property-label"><g:message code="quizz.question.label" default="Question" /></span>
 					
-						<span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span>
+						<%-- <span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span> --%>
+						<span class="property-value" aria-labelledby="question-label"><textArea readonly><g:fieldValue bean="${quizzInstance}" field="question"/></textArea></span>
 					
 				</li>
 				</g:if>
@@ -85,6 +86,10 @@
 					
 				</li>
 				</g:if>
+				
+				<li class="fieldcontain">
+					<span class="addfield" aria-labelledby="answers-label"><g:link controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'answer.label', default: 'New Answer')])}</g:link></span>
+				</li>
 			
 			</ol>
 			<g:form>
