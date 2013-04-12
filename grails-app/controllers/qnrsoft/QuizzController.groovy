@@ -49,10 +49,30 @@ class QuizzController {
 
 	def vote(Long id) {
 		def quizzInstance = Quizz.get(id)
-		if(!quizzInstance || !quizzInstance.state == Quizz.STATE_VOTING) {
-			return redirect(action: "list")
-		} 
+		if (!quizzInstance || quizzInstance.state != Quizz.STATE_VOTING) {
+			//redirect(action: "list")
+			render(view:"error.gsp")
+			return
+		}
+		
 		[quizzInstance: quizzInstance]
+	}
+	
+	def showVote(Long id) {
+		if (!id) {
+			//redirect(action: "list")
+			render(view:"error.gsp")
+			return
+		}
+		
+		redirect(action: "vote", id: id)
+	}
+	
+	def submitVote() {
+		def checkedAnswers = params.list('checkAnswers')
+		def selectedAnswers = Answer.getAll(checkedAnswers)
+		
+		render(selectedAnswers*.answer)
 	}
 
 	def edit(Long id) {
@@ -103,17 +123,6 @@ class QuizzController {
 			quizzInstance.id
 		])
 		redirect(action: "show", id: quizzInstance.id)
-	}
-	
-	def submitVote() {
-		//println("toto")
-		def checkedAnswers = params.list('checkAnswers')
-		render(params.list('checkAnswers'))
-	//	def selectedAnswers = Answer.getAll(checkedAnswers)
-		
-		//selectedAnswers.each { println(it.toString())}
-	//	render(selectedAnswers.get(0))
-		//println(params.checkAnswers)
 	}
 
 	def delete(Long id) {

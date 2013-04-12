@@ -239,7 +239,7 @@ fieldset,
 	margin-left: 27%;
 }
 
-.addfield {
+.add-answer-field {
 	margin-left: 40%;
 	font-size: 1.3em;
 }
@@ -573,7 +573,7 @@ th:hover, tr:hover {
 	text-decoration: underline;
 }
 
-.buttons .delete, .buttons .edit, .buttons .save {
+.buttons .delete, .buttons .edit, .buttons .save, .buttons .submit, .buttons .show, .buttons .attach {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -594,6 +594,18 @@ th:hover, tr:hover {
 
 .buttons .save {
 	background-image: url(../images/skin/database_save.png);
+}
+
+.buttons .submit {
+	background-image: url(../images/skin/submit.png);
+}
+
+.buttons .show {
+	background-image: url(../images/skin/show_view.png);
+}
+
+.buttons .attach {
+	background-image: url(../images/skin/attach.png);
 }
 
 a.skip {

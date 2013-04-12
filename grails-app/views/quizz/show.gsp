@@ -29,7 +29,7 @@
 					<span id="question-label" class="property-label"><g:message code="quizz.question.label" default="Question" /></span>
 					
 						<%-- <span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span> --%>
-						<span class="property-value" aria-labelledby="question-label"><textArea readonly><g:fieldValue bean="${quizzInstance}" field="question"/></textArea></span>
+						<span class="property-value" aria-labelledby="question-label"><g:textArea name="questionarea" readonly="readonly"><g:fieldValue bean="${quizzInstance}" field="question"/></g:textArea></span>
 					
 				</li>
 				</g:if>
@@ -68,8 +68,8 @@
 					<span id="answers-label" class="property-label">Approved Answers</span>
 					
 						<g:each in="${quizzInstance.answers}" var="a">
-						<g:if test="${a.status == Answer.STATUS_APPROVED}">
-							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
+						<g:if test="${a?.status == Answer.STATUS_APPROVED}">
+							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
 						</g:if>						
 						</g:each>
 					
@@ -79,17 +79,13 @@
 					<span id="answers-label" class="property-label">Rejected Answers</span>
 					
 						<g:each in="${quizzInstance.answers}" var="a">
-						<g:if test="${a.status == Answer.STATUS_REJECTED}">
-							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
+						<g:if test="${a?.status == Answer.STATUS_REJECTED}">
+							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
 						</g:if>						
 						</g:each>
 					
 				</li>
 				</g:if>
-				
-				<li class="fieldcontain">
-					<span class="addfield" aria-labelledby="answers-label"><g:link controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'answer.label', default: 'New Answer')])}</g:link></span>
-				</li>
 			
 			</ol>
 			<g:form>
@@ -97,6 +93,8 @@
 					<g:hiddenField name="id" value="${quizzInstance?.id}" />
 					<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]"><g:message code="default.button.add.label" default="Add Answer" /></g:link>
+					<g:link class="show" action="showVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="View Vote" /></g:link>
 				</fieldset>
 			</g:form>
 		</div>

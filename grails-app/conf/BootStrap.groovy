@@ -6,7 +6,7 @@ class BootStrap {
     def init = { servletContext ->
 		
 		def quizz1 = new Quizz(question : "Combien font 2+2 ?",
-			onScreen : false, state : Quizz.STATE_OPENED)
+			onScreen : false, state : Quizz.STATE_VOTING)
 		
 		if(!quizz1.save()) {
 			quizz1.errors.allErrors.each{error ->

@@ -14,7 +14,6 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-quizz" class="content scaffold-show" role="main">
@@ -22,59 +21,58 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<ol class="property-list quizz">
-			
-				<g:if test="${quizzInstance?.question}">
-				<li class="fieldcontain">
-					<span id="question-label" class="property-label"><g:message code="quizz.question.label" default="Question" /></span>
-					
-						<%-- <span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span> --%>
-						<span class="property-value" aria-labelledby="question-label"><textArea readonly><g:fieldValue bean="${quizzInstance}" field="question"/></textArea></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${quizzInstance?.onScreen}">
-				<li class="fieldcontain">
-					<span id="onScreen-label" class="property-label"><g:message code="quizz.onScreen.label" default="On Screen" /></span>
-					
-						<span class="property-value" aria-labelledby="onScreen-label"><g:formatBoolean boolean="${quizzInstance?.onScreen}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${quizzInstance?.state}">
-				<li class="fieldcontain">
-					<span id="state-label" class="property-label"><g:message code="quizz.state.label" default="State" /></span>
-					
-						<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="state"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${quizzInstance?.answers}">
-			
-				<li class="fieldcontain">
-					<span id="answers-label" class="property-label">Approved Answers</span>
-					
-						<g:each in="${quizzInstance.answers}" var="a">
-						<g:if test="${a.status == Answer.STATUS_APPROVED}">
-							<span class="property-value" aria-labelledby="answers-label"><g:checkBox name="checkAnswers" value="${a.answer}" checked="false"/><g:fieldValue bean="${a}" field="answer"/></span>
-						</g:if>						
-						</g:each>
-					
-				</li>
+			<g:form action="submitVote">
+				<ol class="property-list quizz">
 				
-				</g:if>
+					<g:if test="${quizzInstance?.question}">
+					<li class="fieldcontain">
+						<span id="question-label" class="property-label"><g:message code="quizz.question.label" default="Question" /></span>
+						
+							<%-- <span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span> --%>
+							<span class="property-value" aria-labelledby="question-label"><textArea readonly><g:fieldValue bean="${quizzInstance}" field="question"/></textArea></span>
+						
+					</li>
+					</g:if>
+				
+					<g:if test="${quizzInstance?.onScreen != null}">
+					<li class="fieldcontain">
+						<span id="onScreen-label" class="property-label"><g:message code="quizz.onScreen.label" default="On Screen" /></span>
+						
+							<span class="property-value" aria-labelledby="onScreen-label"><g:formatBoolean boolean="${quizzInstance?.onScreen}" /></span>
+						
+					</li>
+					</g:if>
+				
+					<g:if test="${quizzInstance?.state}">
+					<li class="fieldcontain">
+						<span id="state-label" class="property-label"><g:message code="quizz.state.label" default="State" /></span>
+						
+							<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="state"/></span>
+						
+					</li>
+					</g:if>
+				
+					<g:if test="${quizzInstance?.answers}">
+				
+					<li class="fieldcontain">
+						<span id="answers-label" class="property-label">Possible Answers</span>
+						
+							<g:each in="${quizzInstance.answers}" var="a">
+							<g:if test="${a.status == Answer.STATUS_APPROVED}">
+								<span class="property-value" aria-labelledby="answers-label"><g:checkBox name="checkAnswers" value="${a.id}" checked="false"/><g:fieldValue bean="${a}" field="answer"/></span>
+							</g:if>						
+							</g:each>
+						
+					</li>
+					
+					</g:if>
+				
+		
+				</ol>
 			
-	
-			</ol>
-			<g:form>
+				<!-- TODO code ?? -->
 				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${quizzInstance?.id}" />
-					<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-					<g:actionSubmit action="submitVote" value="Submit Vote" />
+					<g:actionSubmit class="submit" value="Submit Vote" onclick="return confirm('${message(code: 'default.button.submit.confirm.message', default: 'Really submit your vote?')}');" />
 				</fieldset>
 			</g:form>
 		</div>
