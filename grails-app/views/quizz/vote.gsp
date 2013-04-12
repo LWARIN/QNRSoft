@@ -53,50 +53,28 @@
 				</g:if>
 			
 				<g:if test="${quizzInstance?.answers}">
-				<li class="fieldcontain">
-					<span id="answers-label" class="property-label">Pending Answers</span>
-					
-						<g:each in="${quizzInstance.answers}" var="a">
-						<g:if test="${a.status == Answer.STATUS_PENDING}">
-							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
-						</g:if>						
-						</g:each>
-					
-				</li>
-				
+			
 				<li class="fieldcontain">
 					<span id="answers-label" class="property-label">Approved Answers</span>
 					
 						<g:each in="${quizzInstance.answers}" var="a">
 						<g:if test="${a.status == Answer.STATUS_APPROVED}">
-							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
+							<span class="property-value" aria-labelledby="answers-label"><g:checkBox name="checkAnswers" value="${a.answer}" checked="false"/><g:fieldValue bean="${a}" field="answer"/></span>
 						</g:if>						
 						</g:each>
 					
 				</li>
 				
-				<li class="fieldcontain">
-					<span id="answers-label" class="property-label">Rejected Answers</span>
-					
-						<g:each in="${quizzInstance.answers}" var="a">
-						<g:if test="${a.status == Answer.STATUS_REJECTED}">
-							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
-						</g:if>						
-						</g:each>
-					
-				</li>
 				</g:if>
-				
-				<li class="fieldcontain">
-					<span class="addfield" aria-labelledby="answers-label"><g:link controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'answer.label', default: 'New Answer')])}</g:link></span>
-				</li>
 			
+	
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${quizzInstance?.id}" />
 					<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:actionSubmit action="submitVote" value="Submit Vote" />
 				</fieldset>
 			</g:form>
 		</div>
