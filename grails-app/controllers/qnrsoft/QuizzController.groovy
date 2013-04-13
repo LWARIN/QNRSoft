@@ -50,7 +50,6 @@ class QuizzController {
 	def vote(Long id) {
 		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance || quizzInstance.state != Quizz.STATE_VOTING) {
-			//redirect(action: "list")
 			render(view:"error.gsp")
 			return
 		}
@@ -58,21 +57,59 @@ class QuizzController {
 		[quizzInstance: quizzInstance]
 	}
 	
-	def showVote(Long id) {
-		if (!id) {
-			//redirect(action: "list")
+	def submitVote(Long id) {
+		def checkedAnswers = params.list('checkAnswers')
+		def selectedAnswers = Answer.getAll(checkedAnswers)
+		
+		if (selectedAnswers.isEmpty()) {
+			//TODO error ?
+			flash.error = "You have to select at least one answer."
+			redirect(action: "vote", id: id)
+			return
+		}
+		
+		// Traitement des réponses
+		// flash.message = message(code: 'default.created.message', args: [message(code: 'answer.label', default: 'Answer'), answerInstance.id])
+		render(selectedAnswers*.answer)
+	}
+	
+	def startVote(Long id) {
+		def quizzInstance = Quizz.get(id)
+		
+		if (!quizzInstance) {
 			render(view:"error.gsp")
 			return
 		}
 		
-		redirect(action: "vote", id: id)
+		if (quizzInstance.state == Quizz.STATE_VOTING) {
+			flash.error = "Voting phase has already started."
+		}
+		else {
+			quizzInstance.state = Quizz.STATE_VOTING
+			flash.message = "Voting phase started."
+		}		
+		
+		redirect(action: "show", id: id)
 	}
 	
-	def submitVote() {
-		def checkedAnswers = params.list('checkAnswers')
-		def selectedAnswers = Answer.getAll(checkedAnswers)
+	def endVote(Long id) {
+		def quizzInstance = Quizz.get(id)
 		
-		render(selectedAnswers*.answer)
+		if (!quizzInstance) {
+			render(view:"error.gsp")
+			return
+		}
+		
+		if (quizzInstance.state == Quizz.STATE_CLOSED) {
+			flash.error = "Voting phase is already over."
+		}
+		else {
+			quizzInstance.state = Quizz.STATE_CLOSED
+			flash.message = "Voting phase over."
+		}
+		
+		// TODO on va à la page de stats ?
+		redirect(action: "show", id: id)
 	}
 
 	def edit(Long id) {

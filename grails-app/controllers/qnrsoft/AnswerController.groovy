@@ -27,7 +27,7 @@ class AnswerController {
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'answer.label', default: 'Answer'), answerInstance.id])
-        redirect(action: "show", id: answerInstance.id)
+		redirect(controller: "quizz", action: "show", id: answerInstance.quizz.id)
     }
 
     def show(Long id) {

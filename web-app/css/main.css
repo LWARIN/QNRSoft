@@ -39,8 +39,8 @@ html * {
 body {
 	background: #ffffff;
 	color: #333333;
-	margin: 0 auto;
-	max-width: 960px;
+	margin: 10px auto;
+	max-width: 1050px;
 	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
 	   -moz-box-shadow: 0 0 0.3em #255b17;
 	-webkit-box-shadow: 0 0 0.3em #255b17;
@@ -48,7 +48,7 @@ body {
 }
 
 #grailsLogo {
-	background-color: #abbf78;
+	background-color: #ffffff;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -65,7 +65,7 @@ body {
 }
 
 a:link, a:visited, a:hover {
-	color: #48802c;
+	color: #CE3737;
 }
 
 a:hover, a:active {
@@ -73,7 +73,7 @@ a:hover, a:active {
 }
 
 h1 {
-	color: #48802c;
+	color: #CE3737;
 	font-weight: normal;
 	font-size: 1.25em;
 	margin: 0.8em 0 0.3em 0;
@@ -108,7 +108,7 @@ img {
 }
 
 .footer {
-	background: #abbf78;
+	background: #ce3737;
 	color: #000;
 	clear: both;
 	font-size: 0.8em;
@@ -135,7 +135,7 @@ img {
 /* NAVIGATION MENU */
 
 .nav {
-	background-color: #efefef;
+	background-color: #CE3737;
 	padding: 0.5em 0.75em;
 	   -moz-box-shadow: 0 0 3px 1px #aaaaaa;
 	-webkit-box-shadow: 0 0 3px 1px #aaaaaa;
@@ -168,14 +168,14 @@ img {
 }
 
 .nav a:active, .nav a:visited {
-	color: #666666;
+	color: #ffffff;
 }
 
 .nav a:focus, .nav a:hover {
-	background-color: #999999;
-	color: #ffffff;
+	background-color: #ffffff;
+	color: #000000;
 	outline: none;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+	/*text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);*/
 }
 
 .no-borderradius .nav a:focus, .no-borderradius .nav a:hover {
@@ -207,7 +207,7 @@ img {
 fieldset,
 .property-list {
 	margin: 0.6em 1.25em 0 1.25em;
-	padding: 0.3em 1.8em 1.25em;
+	padding: 0.3em 1.8em 2.5em;
 	position: relative;
 	zoom: 1;
 	border: none;
@@ -236,7 +236,7 @@ fieldset,
 
 .fieldcontain .property-value {
 	display: block;
-	margin-left: 27%;
+	margin-left: 29%;
 }
 
 .add-answer-field {
@@ -369,6 +369,11 @@ fieldset.embedded legend {
 	text-indent: 2.2em;
 }
 
+.errors {
+	background: transparent url(../images/skin/exclamation.png) 0.5em 50% no-repeat;
+	text-indent: 2.2em;
+}
+
 .message {
 	background: transparent url(../images/skin/information.png) 0.5em 50% no-repeat;
 	text-indent: 2.2em;
@@ -482,7 +487,7 @@ th.desc a {
 }
 
 th:hover, tr:hover {
-	background: #E1F2B6;
+	background: #D9F1FF;
 }
 
 /* PAGINATION */
@@ -528,7 +533,7 @@ th:hover, tr:hover {
 /* ACTION BUTTONS */
 
 .buttons {
-	background-color: #efefef;
+	background-color: #d9f1ff;
 	overflow: hidden;
 	padding: 0.3em;
 	   -moz-box-shadow: 0 0 3px 1px #aaaaaa;

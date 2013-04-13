@@ -13,6 +13,14 @@ class BootStrap {
 				println "An error occured with quizz1"}
 		}
 		
+		def quizz2 = new Quizz(question : "Ceci est la deuxieme question",
+			onScreen : false, state : Quizz.STATE_OPENED)
+		
+		if(!quizz2.save()) {
+			quizz2.errors.allErrors.each{error ->
+				println "An error occured with quizz2"}
+		}
+		
 		def answer1 = new Answer(answer : "Je dirais que ca fait 4",
 			status : Answer.STATUS_APPROVED, validity : Answer.VALIDITY_CORRECT, comment : "")
 		

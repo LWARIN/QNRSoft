@@ -14,7 +14,6 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-quizz" class="content scaffold-show" role="main">
@@ -22,14 +21,17 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
+			<g:if test="${flash.error}">
+			<div class="errors" role="status">${flash.error}</div>
+			</g:if>
 			<ol class="property-list quizz">
 			
 				<g:if test="${quizzInstance?.question}">
 				<li class="fieldcontain">
 					<span id="question-label" class="property-label"><g:message code="quizz.question.label" default="Question" /></span>
 					
-						<%-- <span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span> --%>
-						<span class="property-value" aria-labelledby="question-label"><g:textArea name="questionarea" readonly="readonly"><g:fieldValue bean="${quizzInstance}" field="question"/></g:textArea></span>
+						<span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span>
+						<!-- <span class="property-value" aria-labelledby="question-label"><g:textArea name="questionarea" readonly="readonly"><g:fieldValue bean="${quizzInstance}" field="question"/></g:textArea></span> -->
 					
 				</li>
 				</g:if>
@@ -94,7 +96,9 @@
 					<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 					<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]"><g:message code="default.button.add.label" default="Add Answer" /></g:link>
-					<g:link class="show" action="showVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="View Vote" /></g:link>
+					<g:link class="show" action="vote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="View Vote" /></g:link>
+					<g:link action="startVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Start Vote" /></g:link>
+					<g:link action="endVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="End Vote" /></g:link>
 				</fieldset>
 			</g:form>
 		</div>

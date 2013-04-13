@@ -21,6 +21,9 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
+			<g:if test="${flash.error}">
+			<div class="errors" role="status">${flash.error}</div>
+			</g:if>
 			<g:form action="submitVote">
 				<ol class="property-list quizz">
 				
@@ -28,8 +31,7 @@
 					<li class="fieldcontain">
 						<span id="question-label" class="property-label"><g:message code="quizz.question.label" default="Question" /></span>
 						
-							<%-- <span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span> --%>
-							<span class="property-value" aria-labelledby="question-label"><textArea readonly><g:fieldValue bean="${quizzInstance}" field="question"/></textArea></span>
+							<span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span>
 						
 					</li>
 					</g:if>
@@ -43,19 +45,10 @@
 					</li>
 					</g:if>
 				
-					<g:if test="${quizzInstance?.state}">
-					<li class="fieldcontain">
-						<span id="state-label" class="property-label"><g:message code="quizz.state.label" default="State" /></span>
-						
-							<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="state"/></span>
-						
-					</li>
-					</g:if>
-				
 					<g:if test="${quizzInstance?.answers}">
 				
 					<li class="fieldcontain">
-						<span id="answers-label" class="property-label">Possible Answers</span>
+						<span id="answers-label" class="property-label">Answers</span>
 						
 							<g:each in="${quizzInstance.answers}" var="a">
 							<g:if test="${a.status == Answer.STATUS_APPROVED}">
@@ -65,14 +58,15 @@
 						
 					</li>
 					
-					</g:if>
-				
+					</g:if>				
 		
 				</ol>
 			
 				<!-- TODO code ?? -->
 				<fieldset class="buttons">
-					<g:actionSubmit class="submit" value="Submit Vote" onclick="return confirm('${message(code: 'default.button.submit.confirm.message', default: 'Really submit your vote?')}');" />
+					<!-- On a besoin du hiddenField qui sert de parametre a la methode submitVote -->
+					<g:hiddenField name="id" value="${quizzInstance?.id}" />
+					<g:actionSubmit value="Submit Vote" class="submit" action="submitVote" onclick="return confirm('${message(code: 'default.button.submit.confirm.message', default: 'Really submit your vote?')}');" />
 				</fieldset>
 			</g:form>
 		</div>

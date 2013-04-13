@@ -27,8 +27,8 @@
 				<li class="fieldcontain">
 					<span id="answer-label" class="property-label"><g:message code="answer.answer.label" default="Answer" /></span>
 					
-						<%-- <span class="property-value" aria-labelledby="answer-label"><g:fieldValue bean="${answerInstance}" field="answer"/></span> --%>
-						<span class="property-value" aria-labelledby="answer-label"><textarea readonly><g:fieldValue bean="${answerInstance}" field="answer"/></textarea></span>
+						<span class="property-value" aria-labelledby="answer-label"><g:fieldValue bean="${answerInstance}" field="answer"/></span>
+						<!-- <span class="property-value" aria-labelledby="answer-label"><g:textArea name="answerarea" readonly="readonly"><g:fieldValue bean="${answerInstance}" field="answer"/></g:textArea></span> -->
 					
 				</li>
 				</g:if>
@@ -51,12 +51,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${answerInstance?.comment}">
+				<g:if test="${answerInstance?.comment != null}">
 				<li class="fieldcontain">
 					<span id="comment-label" class="property-label"><g:message code="answer.comment.label" default="Comment" /></span>
 					
-						<%-- <span class="property-value" aria-labelledby="comment-label"><g:fieldValue bean="${answerInstance}" field="comment"/></span> --%>
-						<textarea><g:fieldValue bean="${answerInstance}" field="comment"/></textarea>
+						<span class="property-value" aria-labelledby="comment-label"><g:fieldValue bean="${answerInstance}" field="comment"/></span>
 					
 				</li>
 				</g:if>
