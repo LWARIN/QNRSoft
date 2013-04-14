@@ -36,6 +36,15 @@ html * {
 	margin: 0;
 }
 
+#header {
+	background-color: #ce3737;
+	padding: 0.2em 0.75em;
+	max-width: 85%;
+	margin: auto;
+	border-radius: 35px;
+	zoom: 1;
+}
+
 body {
 	background: #ffffff;
 	color: #333333;
@@ -157,8 +166,14 @@ img {
 	padding: 0;
 }
 
+.nav li.log {
+	position: absolute;
+	top: 139px;
+	right: 280px;
+}
+
 .nav a {
-	color: #666666;
+	color: #ffffff;
 	display: block;
 	padding: 0.25em 0.7em;
 	text-decoration: none;

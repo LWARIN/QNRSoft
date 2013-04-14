@@ -12,8 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
 			</ul>
 		</div>
 		<div id="show-answer" class="content scaffold-show" role="main">
@@ -28,7 +27,6 @@
 					<span id="answer-label" class="property-label"><g:message code="answer.answer.label" default="Answer" /></span>
 					
 						<span class="property-value" aria-labelledby="answer-label"><g:fieldValue bean="${answerInstance}" field="answer"/></span>
-						<!-- <span class="property-value" aria-labelledby="answer-label"><g:textArea name="answerarea" readonly="readonly"><g:fieldValue bean="${answerInstance}" field="answer"/></g:textArea></span> -->
 					
 				</li>
 				</g:if>

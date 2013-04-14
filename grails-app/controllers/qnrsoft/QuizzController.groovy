@@ -1,6 +1,7 @@
 package qnrsoft
 
 import org.springframework.dao.DataIntegrityViolationException
+import org.apache.shiro.SecurityUtils
 
 class QuizzController {
 
@@ -50,7 +51,7 @@ class QuizzController {
 	def vote(Long id) {
 		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance || quizzInstance.state != Quizz.STATE_VOTING) {
-			render(view:"error.gsp")
+			render(view: "/error.gsp", exception: 'test')
 			return
 		}
 		
@@ -77,7 +78,7 @@ class QuizzController {
 		def quizzInstance = Quizz.get(id)
 		
 		if (!quizzInstance) {
-			render(view:"error.gsp")
+			render(view: "/error.gsp")
 			return
 		}
 		
@@ -96,7 +97,7 @@ class QuizzController {
 		def quizzInstance = Quizz.get(id)
 		
 		if (!quizzInstance) {
-			render(view:"error.gsp")
+			render(view: "/error.gsp")
 			return
 		}
 		

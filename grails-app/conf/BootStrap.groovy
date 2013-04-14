@@ -1,9 +1,27 @@
 import qnrsoft.Answer
 import qnrsoft.Quizz
+import qnrsoft.Role
+import qnrsoft.User
 
 class BootStrap {
+	
+	def shiroSecurityService
 
     def init = { servletContext ->
+		
+		// Create the admin role
+		def teacherRole = Role.findByName('ROLE_TEACHER') ?:
+			new Role(name: 'ROLE_TEACHER').save(flush: true, failOnError: true)
+
+		// Create an admin user
+		def adminUser = User.findByUsername('admin') ?:
+			new User(username: "admin",
+					passwordHash: shiroSecurityService.encodePassword('password'))
+					.save(flush: true, failOnError: true)
+
+		// Add roles to the admin user
+		assert adminUser.addToRoles(teacherRole)
+				.save(flush: true, failOnError: true)
 		
 		def quizz1 = new Quizz(question : "Combien font 2+2 ?",
 			onScreen : false, state : Quizz.STATE_VOTING)

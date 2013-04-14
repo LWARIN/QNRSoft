@@ -13,7 +13,9 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<shiro:hasRole name="ROLE_TEACHER"><li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li></shiro:hasRole>
+				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
+				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login"><g:message code="default.signin.label" default="Sign in" /></g:link></li></shiro:isNotLoggedIn>
 			</ul>
 		</div>
 		<div id="show-quizz" class="content scaffold-show" role="main">
@@ -62,12 +64,14 @@
 		
 				</ol>
 			
-				<!-- TODO code ?? -->
-				<fieldset class="buttons">
-					<!-- On a besoin du hiddenField qui sert de parametre a la methode submitVote -->
-					<g:hiddenField name="id" value="${quizzInstance?.id}" />
-					<g:actionSubmit value="Submit Vote" class="submit" action="submitVote" onclick="return confirm('${message(code: 'default.button.submit.confirm.message', default: 'Really submit your vote?')}');" />
-				</fieldset>
+				<shiro:lacksRole name="ROLE_TEACHER">
+					<!-- TODO code ?? -->
+					<fieldset class="buttons">
+						<!-- On a besoin du hiddenField qui sert de parametre a la methode submitVote -->
+						<g:hiddenField name="id" value="${quizzInstance?.id}" />
+						<g:actionSubmit value="Submit Vote" class="submit" action="submitVote" onclick="return confirm('${message(code: 'default.button.submit.confirm.message', default: 'Really submit your vote?')}');" />
+					</fieldset>
+				</shiro:lacksRole>
 			</g:form>
 		</div>
 	</body>
