@@ -5,7 +5,7 @@
 <meta name="layout" content="main" />
 <title>Authentication</title>
 
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'login.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'log.css')}" type="text/css">
 
 </head>
 <body>

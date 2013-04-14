@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<title>Q'n'R Web App</title>
+		<title>QnR Web App</title>
 		<style type="text/css" media="screen">
 			#status {
 				background-color: #eee;
@@ -38,15 +38,6 @@
 				text-transform: uppercase;
 				font-size: 1.1em;
 				margin: 0 0 0.3em;
-			}
-			
-			#header {
-				background-color: #ce3737;
-				padding: 0.2em 0.75em;
-				max-width: 85%;
-				margin: auto;
-				border-radius: 35px;
-				zoom: 1;
 			}
 
 			#page-body {
@@ -92,15 +83,14 @@
 	<body>
 		<div id="header"></div>
 		<div id="page-body" role="main">
-			<h1>Welcome to QNR Web App</h1>
+			<h1>Welcome to QnR Web App</h1>
 			<p>Pour se connecter (rôle Teacher)<br>Username: admin<br>Password: password</p>
 
 			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
 				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
+					<li class="controller"><g:link url="${resource(dir:'quizz', file:'list')}">Quizz List</g:link></li>
+					<li class="controller"><g:link url="${resource(dir:'auth', file:'login')}">Authenticate</g:link></li>
+					<li class="controller"><g:link url="${resource(dir:'signup', file:'index')}">Sign up</g:link></li>
 				</ul>
 			</div>
 		</div>
