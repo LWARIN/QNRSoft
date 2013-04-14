@@ -18,7 +18,10 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="${createLink(uri: '/')}"><img src="${resource(dir: 'images', file: 'univ_logo.png')}" alt="Grails"/></a></div>
+		<div id="appLogo" role="banner">
+			<a href="${createLink(uri: '/')}"><img src="${resource(dir: 'images', file: 'univ_logo.png')}" alt="UPS"/></a>
+			<img class="title" src="${resource(dir: 'images', file: 'title.png')}" alt="QnR Web App"/>
+		</div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
