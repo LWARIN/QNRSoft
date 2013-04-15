@@ -8,7 +8,7 @@ class BootStrap {
 	def shiroSecurityService
 
     def init = { servletContext ->
-		
+		/*
 		// Create the admin role
 		def teacherRole = Role.findByName('ROLE_TEACHER') ?:
 			new Role(name: 'ROLE_TEACHER').save(flush: true, failOnError: true)
@@ -24,7 +24,7 @@ class BootStrap {
 				.save(flush: true, failOnError: true)
 		
 		def quizz1 = new Quizz(question : "Combien font 2+2 ?",
-			onScreen : false, state : Quizz.STATE_VOTING)
+			onScreen : true, state : Quizz.STATE_VOTING)
 		
 		if(!quizz1.save()) {
 			quizz1.errors.allErrors.each{error ->
@@ -55,6 +55,8 @@ class BootStrap {
 		quizz1.addToAnswers(answer2)
 		quizz1.addToAnswers(answer3)
 		quizz1.addToAnswers(answer4)
+		
+		*/
     }
     def destroy = {
     }

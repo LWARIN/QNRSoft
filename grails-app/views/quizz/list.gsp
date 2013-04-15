@@ -12,7 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<shiro:hasRole name="ROLE_TEACHER"><li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li></shiro:hasRole>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
 			</ul>
 		</div>
@@ -35,7 +35,9 @@
 				</thead>
 				<tbody>
 				<g:each in="${quizzInstanceList}" status="i" var="quizzInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+				
+					<shiro:hasRole name="ROLE_TEACHER">
+						<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<g:set var="quest" value="${fieldValue(bean: quizzInstance, field: "question")}" />
 					
@@ -45,9 +47,29 @@
 					
 						<td><g:formatBoolean boolean="${quizzInstance.onScreen}" /></td>
 					
-						<td>${fieldValue(bean: quizzInstance, field: "state")}</td>
-					
+						<td>${fieldValue(bean: quizzInstance, field: "state")}</td>					
 					</tr>
+					
+					</shiro:hasRole>
+					
+					<shiro:isNotLoggedIn>
+						<g:if test="${quizzInstance.onScreen}">
+							<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+						
+							<g:set var="quest" value="${fieldValue(bean: quizzInstance, field: "question")}" />
+						
+							<td><g:link action="show" id="${quizzInstance.id}">
+								${quest.length() <= 35 ? quest : quest.substring(0, 35)}
+							</g:link></td>
+							
+							<td><g:formatBoolean boolean="${quizzInstance.onScreen}" /></td>
+						
+							<td>${fieldValue(bean: quizzInstance, field: "state")}</td>
+						
+							</tr>					
+						</g:if>
+					</shiro:isNotLoggedIn>
+					
 				</g:each>
 				</tbody>
 			</table>

@@ -38,15 +38,6 @@
 					</li>
 					</g:if>
 				
-					<g:if test="${quizzInstance?.onScreen != null}">
-					<li class="fieldcontain">
-						<span id="onScreen-label" class="property-label"><g:message code="quizz.onScreen.label" default="On Screen" /></span>
-						
-							<span class="property-value" aria-labelledby="onScreen-label"><g:formatBoolean boolean="${quizzInstance?.onScreen}" /></span>
-						
-					</li>
-					</g:if>
-				
 					<g:if test="${quizzInstance?.answers}">
 				
 					<li class="fieldcontain">

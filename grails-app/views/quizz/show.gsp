@@ -32,7 +32,6 @@
 					<span id="question-label" class="property-label"><g:message code="quizz.question.label" default="Question" /></span>
 					
 						<span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span>
-						<!-- <span class="property-value" aria-labelledby="question-label"><g:textArea name="questionarea" readonly="readonly"><g:fieldValue bean="${quizzInstance}" field="question"/></g:textArea></span> -->
 					
 				</li>
 				</g:if>
@@ -100,6 +99,8 @@
 					<g:link class="show" action="vote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="View Vote" /></g:link>
 					<g:link action="startVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Start Vote" /></g:link>
 					<g:link action="endVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="End Vote" /></g:link>
+					<g:link action="showStats" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Show Stats" /></g:link>
+					<g:link action="reinit" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Zero" /></g:link>
 				</fieldset>
 			</g:form>
 		</div>

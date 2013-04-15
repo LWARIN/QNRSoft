@@ -44,6 +44,19 @@ class QuizzController {
 			redirect(action: "list")
 			return
 		}
+		
+		if (!SecurityUtils.getSubject().hasRole("ROLE_TEACHER")) {
+			if (quizzInstance.state == Quizz.STATE_VOTING) {
+				redirect(action: "vote", id: id)
+			}
+			else if (quizzInstance.state == Quizz.STATE_CLOSED) {
+				redirect(action: "showStats", id: id)
+			}
+			else {
+				redirect(action: "list")
+			}
+			return
+		}
 
 		[quizzInstance: quizzInstance]
 	}
@@ -56,22 +69,29 @@ class QuizzController {
 		}
 		
 		[quizzInstance: quizzInstance]
-	}
+	}	
 	
 	def submitVote(Long id) {
 		def checkedAnswers = params.list('checkAnswers')
 		def selectedAnswers = Answer.getAll(checkedAnswers)
 		
 		if (selectedAnswers.isEmpty()) {
-			//TODO error ?
 			flash.error = "You have to select at least one answer."
 			redirect(action: "vote", id: id)
 			return
 		}
 		
-		// Traitement des réponses
+		// Traitement des reponses
 		// flash.message = message(code: 'default.created.message', args: [message(code: 'answer.label', default: 'Answer'), answerInstance.id])
-		render(selectedAnswers*.answer)
+		//render(selectedAnswers*.answer)
+		
+		for (Answer answer : selectedAnswers) {
+			answer.voteCount++
+			answer.save()
+		}
+		
+		flash.message = "Vote accepted."
+		redirect(action: "list")
 	}
 	
 	def startVote(Long id) {
@@ -87,6 +107,8 @@ class QuizzController {
 		}
 		else {
 			quizzInstance.state = Quizz.STATE_VOTING
+			//TODO save cascade
+			quizzInstance.save()
 			flash.message = "Voting phase started."
 		}		
 		
@@ -106,10 +128,37 @@ class QuizzController {
 		}
 		else {
 			quizzInstance.state = Quizz.STATE_CLOSED
+			//TODO save cascade
+			quizzInstance.save()
 			flash.message = "Voting phase over."
 		}
 		
-		// TODO on va à la page de stats ?
+		// TODO on va a la page de stats ?
+		redirect(action: "show", id: id)
+	}
+	
+	def showStats(Long id) {
+		def quizzInstance = Quizz.get(id)
+		if (!quizzInstance || quizzInstance.state != Quizz.STATE_CLOSED) {
+			render(view: "/error.gsp")
+			return
+		}
+		
+		render(view: "stats", model: [quizzInstance: quizzInstance])
+	}
+	
+	def reinit(Long id) {
+		def quizzInstance = Quizz.get(id)
+		if (!quizzInstance) {
+			render(view: "/error.gsp")
+			return
+		}
+		
+		for (Answer answer : quizzInstance.answers) {
+			answer.voteCount = 0
+			answer.save()
+		}
+		
 		redirect(action: "show", id: id)
 	}
 

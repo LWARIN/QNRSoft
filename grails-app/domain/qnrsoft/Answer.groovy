@@ -14,6 +14,8 @@ class Answer {
 	String validity
 	String comment
 	
+	int voteCount
+	
 	Quizz quizz
 
     static constraints = {
