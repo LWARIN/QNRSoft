@@ -12,8 +12,7 @@ class Answer {
 	String answer
 	String status
 	String validity
-	String comment
-	
+	String comment	
 	int voteCount
 	
 	Quizz quizz

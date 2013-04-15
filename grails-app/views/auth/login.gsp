@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="layout" content="main" />
-<title>Authentication</title>
+<title>QnR - Authentication</title>
 
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'log.css')}" type="text/css">
 

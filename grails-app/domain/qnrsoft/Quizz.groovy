@@ -9,6 +9,7 @@ class Quizz {
 	String question
 	boolean onScreen
 	String state
+	int voteCount
 	
 	static hasMany = [answers : Answer]
 

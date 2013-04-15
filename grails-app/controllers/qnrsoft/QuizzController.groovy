@@ -72,6 +72,7 @@ class QuizzController {
 	}	
 	
 	def submitVote(Long id) {
+		def quizzInstance = Quizz.get(id)
 		def checkedAnswers = params.list('checkAnswers')
 		def selectedAnswers = Answer.getAll(checkedAnswers)
 		
@@ -81,9 +82,8 @@ class QuizzController {
 			return
 		}
 		
-		// Traitement des reponses
-		// flash.message = message(code: 'default.created.message', args: [message(code: 'answer.label', default: 'Answer'), answerInstance.id])
-		//render(selectedAnswers*.answer)
+		quizzInstance.voteCount++
+		quizzInstance.save()
 		
 		for (Answer answer : selectedAnswers) {
 			answer.voteCount++
@@ -147,18 +147,23 @@ class QuizzController {
 		render(view: "stats", model: [quizzInstance: quizzInstance])
 	}
 	
-	def reinit(Long id) {
+	def resetVotes(Long id) {
 		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			render(view: "/error.gsp")
 			return
 		}
 		
+		//TODO cascade ?
+		quizzInstance.voteCount = 0;
+		quizzInstance.save()
+		
 		for (Answer answer : quizzInstance.answers) {
 			answer.voteCount = 0
 			answer.save()
 		}
 		
+		flash.message = "The votes for this quizz have been reset."
 		redirect(action: "show", id: id)
 	}
 

@@ -22,7 +22,7 @@ class AuthController {
         if (params.rememberMe) {
             authToken.rememberMe = true
         }
-        
+		
         // If a controller redirected to this page, redirect back
         // to it. Otherwise redirect to the root URI.
         def targetUri = params.targetUri ?: "/"
@@ -41,6 +41,7 @@ class AuthController {
             SecurityUtils.subject.login(authToken)
 
             log.info "Redirecting to '${targetUri}'."
+			flash.message = "You are now logged in as '${params.username}'"
             redirect(uri: targetUri)
         }
         catch (AuthenticationException ex){
@@ -70,11 +71,11 @@ class AuthController {
         // Log the user out of the application.
         SecurityUtils.subject?.logout()
 
-        // For now, redirect back to the home page.
+		flash.message = "You are now logged out."
         redirect(uri: "/")
     }
 
     def unauthorized = {
-        render "You do not have permission to access this page."
+        render (view: "/error.gsp")
     }
 }

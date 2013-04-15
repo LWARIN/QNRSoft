@@ -73,8 +73,13 @@ body {
 	height: 100%;
 }
 
-a:link, a:visited, a:hover {
+a:link, a:visited {
 	color: #CE3737;
+	text-decoration: none;
+}
+
+a:hover {
+	/*text-decoration: underline;*/
 }
 
 a:hover, a:active {
@@ -128,10 +133,15 @@ img.title {
 	margin-top: 1.5em;
 	padding: 1em;
 	min-height: 1em;
+	text-align: center;
 }
 
 .footer a {
-	color: #255b17;
+	color: #ffffff;
+}
+
+.footer a:hover {
+	text-decoration: underline;
 }
 
 .spinner {
@@ -172,8 +182,9 @@ img.title {
 
 .nav li.log {
 	position: absolute;
-	top: 139px;
-	right: 280px;
+	top: 17.8%;
+	right: 17.5%;
+	/*background-color: #000000*/
 }
 
 .nav a {

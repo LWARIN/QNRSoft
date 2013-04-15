@@ -5,15 +5,14 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'quizz.label', default: 'Quizz')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<title>QnR - Quizz #${quizzInstance?.id}</title>
 	</head>
 	<body>
 		<a href="#show-quizz" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="list">Quizz List</g:link></li>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
 			</ul>
 		</div>
@@ -31,7 +30,7 @@
 				<li class="fieldcontain">
 					<span id="question-label" class="property-label"><g:message code="quizz.question.label" default="Question" /></span>
 					
-						<span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span>
+					<span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span>
 					
 				</li>
 				</g:if>
@@ -40,7 +39,7 @@
 				<li class="fieldcontain">
 					<span id="onScreen-label" class="property-label"><g:message code="quizz.onScreen.label" default="On Screen" /></span>
 					
-						<span class="property-value" aria-labelledby="onScreen-label"><g:formatBoolean boolean="${quizzInstance?.onScreen}" /></span>
+					<span class="property-value" aria-labelledby="onScreen-label"><g:formatBoolean boolean="${quizzInstance?.onScreen}" /></span>
 					
 				</li>
 				</g:if>
@@ -49,7 +48,7 @@
 				<li class="fieldcontain">
 					<span id="state-label" class="property-label"><g:message code="quizz.state.label" default="State" /></span>
 					
-						<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="state"/></span>
+					<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="state"/></span>
 					
 				</li>
 				</g:if>
@@ -100,7 +99,7 @@
 					<g:link action="startVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Start Vote" /></g:link>
 					<g:link action="endVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="End Vote" /></g:link>
 					<g:link action="showStats" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Show Stats" /></g:link>
-					<g:link action="reinit" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Zero" /></g:link>
+					<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');"><g:message code="default.button.show.label" default="Reset Votes" /></g:link>
 				</fieldset>
 			</g:form>
 		</div>

@@ -4,8 +4,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'answer.label', default: 'Answer')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<title>QnR - Answer #${answerInstance?.id}</title>
 	</head>
 	<body>
 		<a href="#show-answer" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>

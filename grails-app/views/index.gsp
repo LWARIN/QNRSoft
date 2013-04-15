@@ -82,6 +82,9 @@
 	</head>
 	<body>
 		<div id="header"></div>
+		<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+		</g:if>
 		<div id="page-body" role="main">
 			<h1>Welcome to QnR Web App</h1>
 			<p>Pour se connecter (rôle Teacher)<br>Username: admin<br>Password: password</p>
