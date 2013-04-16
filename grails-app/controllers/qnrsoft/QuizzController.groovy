@@ -48,14 +48,12 @@ class QuizzController {
 		if (!SecurityUtils.getSubject().hasRole("ROLE_TEACHER")) {
 			if (quizzInstance.state == Quizz.STATE_VOTING) {
 				redirect(action: "vote", id: id)
+				return
 			}
 			else if (quizzInstance.state == Quizz.STATE_CLOSED) {
 				redirect(action: "showStats", id: id)
+				return
 			}
-			else {
-				redirect(action: "list")
-			}
-			return
 		}
 
 		[quizzInstance: quizzInstance]

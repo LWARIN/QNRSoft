@@ -92,19 +92,23 @@
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${quizzInstance?.id}" />
-					<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<shiro:hasRole name="ROLE_TEACHER">
+						<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+						<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					</shiro:hasRole>
 					<!--  Quizz à l'état OUVERT -->
 					<g:if test="${quizzInstance.state == Quizz.STATE_OPENED}">
 						<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]"><g:message code="default.button.add.label" default="Add Answer" /></g:link>
-						<g:link action="startVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Start Vote" /></g:link>
+						<shiro:hasRole name="ROLE_TEACHER"><g:link action="startVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Start Vote" /></g:link></shiro:hasRole>
 					</g:if>		
 					
 					<!--  Quizz à l'état VOTE -->
 					<g:if test="${quizzInstance.state == Quizz.STATE_VOTING}">
 						<g:link class="show" action="vote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="View Vote" /></g:link>
-						<g:link action="endVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="End Vote" /></g:link>
-						<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');"><g:message code="default.button.show.label" default="Reset Votes" /></g:link>
+						<shiro:hasRole name="ROLE_TEACHER">
+							<g:link action="endVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="End Vote" /></g:link>
+						<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');"><g:message code="default.button.show.label" default="Reset Votes" /></g:link>	
+						</shiro:hasRole>		
 					</g:if>	
 				
 					<!--  Quizz à l'état CLOSE -->
