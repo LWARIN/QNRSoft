@@ -4,14 +4,16 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<title>QnR - Answer #${answerInstance?.id}</title>
+		<title>QnR - Answer</title>
 	</head>
 	<body>
 		<a href="#show-answer" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
+				<li><g:link class="back" controller="quizz" action="show" id="${answerInstance?.quizz?.id}">Back to Quizz</g:link></li>
+				<li><g:link class="list" controller="answer" action="list">Answer List</g:link></li>
+				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut">Logout</g:link></li></shiro:isLoggedIn>
 			</ul>
 		</div>
 		<div id="show-answer" class="content scaffold-show" role="main">
@@ -57,21 +59,13 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${answerInstance?.quizz}">
-				<li class="fieldcontain">
-					<span id="quizz-label" class="property-label"><g:message code="answer.quizz.label" default="Quizz" /></span>
-					
-						<span class="property-value" aria-labelledby="quizz-label"><g:link controller="quizz" action="show" id="${answerInstance?.quizz?.id}">${answerInstance?.quizz?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${answerInstance?.id}" />
-					<g:link class="edit" action="edit" id="${answerInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:link class="edit" action="edit" id="${answerInstance?.id}">Edit Answer</g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:link action="comment" id="${answerInstance?.id}">Edit Comment</g:link>
 				</fieldset>
 			</g:form>
 		</div>

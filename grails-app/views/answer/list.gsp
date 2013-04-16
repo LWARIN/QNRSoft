@@ -11,7 +11,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create">New Answer</g:link></li>
+				<li><g:link class="list" controller="quizz" action="list">Quizz List</g:link></li>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
 			</ul>
 		</div>
@@ -47,8 +47,8 @@
 						<td>${fieldValue(bean: answerInstance, field: "validity")}</td>
 					
 						<td>${fieldValue(bean: answerInstance, field: "comment")}</td>
-					
-						<td>${fieldValue(bean: answerInstance, field: "quizz")}</td>
+						
+						<td><g:link controller="quizz" action="show" id="${answerInstance.quizz.id}">Quizz #${answerInstance.quizz.id}</g:link></td>
 					
 					</tr>
 				</g:each>

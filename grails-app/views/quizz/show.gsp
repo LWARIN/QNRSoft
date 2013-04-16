@@ -94,12 +94,12 @@
 					<g:hiddenField name="id" value="${quizzInstance?.id}" />
 					<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-					<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]"><g:message code="default.button.add.label" default="Add Answer" /></g:link>
-					<g:link class="show" action="vote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="View Vote" /></g:link>
-					<g:link action="startVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Start Vote" /></g:link>
-					<g:link action="endVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="End Vote" /></g:link>
-					<g:link action="showStats" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Show Stats" /></g:link>
-					<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');"><g:message code="default.button.show.label" default="Reset Votes" /></g:link>
+					<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">Add Answer</g:link>
+					<g:link class="show" action="vote" id="${quizzInstance?.id}">View Vote</g:link>
+					<g:link action="startVote" id="${quizzInstance?.id}">Start Vote</g:link>
+					<g:link action="endVote" id="${quizzInstance?.id}">Close Vote</g:link>
+					<g:link class="stats" action="showStats" id="${quizzInstance?.id}">Show Stats</g:link>
+					<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');">Reset Votes</g:link>
 				</fieldset>
 			</g:form>
 		</div>

@@ -12,7 +12,10 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<shiro:hasRole name="ROLE_TEACHER"><li><g:link class="list" action="list">Quizz List</g:link></li></shiro:hasRole>
+				<shiro:hasRole name="ROLE_TEACHER">
+					<li><g:link class="back" action="show" id="${quizzInstance?.id}">Back to Quizz</g:link></li>
+					<li><g:link class="list" action="list">Quizz List</g:link></li>
+				</shiro:hasRole>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
 				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login" params="[targetUri: '/quizz/showStats/' + quizzInstance?.id]"><g:message code="default.signin.label" default="Sign in" /></g:link></li></shiro:isNotLoggedIn>
 			</ul>

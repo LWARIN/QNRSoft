@@ -12,7 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<shiro:hasRole name="ROLE_TEACHER"><li><g:link class="list" action="list">Quizz List</g:link></li></shiro:hasRole>
+				<li><g:link class="list" action="list">Quizz List</g:link></li>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
 				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login" params="[targetUri: '/quizz/vote/' + quizzInstance?.id]"><g:message code="default.signin.label" default="Sign in" /></g:link></li></shiro:isNotLoggedIn>
 			</ul>
@@ -29,10 +29,10 @@
 				<ol class="property-list quizz">
 				
 					<g:if test="${quizzInstance?.question}">
-					<li class="fieldcontain">
+					<li class="fieldcontain"  style="margin-bottom: 40px">
 						<span id="question-label" class="property-label"><g:message code="quizz.question.label" default="Question" /></span>
 						
-							<span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span>
+						<span class="property-value" aria-labelledby="question-label"><g:fieldValue bean="${quizzInstance}" field="question"/></span>
 						
 					</li>
 					</g:if>
@@ -44,7 +44,7 @@
 						
 							<g:each in="${quizzInstance.answers}" var="a">
 							<g:if test="${a.status == Answer.STATUS_APPROVED}">
-								<span class="property-value" aria-labelledby="answers-label"><g:checkBox name="checkAnswers" value="${a.id}" checked="false"/><g:fieldValue bean="${a}" field="answer"/></span>
+								<span class="property-value" aria-labelledby="answers-label"><g:checkBox name="checkAnswers" value="${a.id}" checked="false" style="margin-bottom: 20px"/> ${a.answer}</span>
 							</g:if>						
 							</g:each>
 						

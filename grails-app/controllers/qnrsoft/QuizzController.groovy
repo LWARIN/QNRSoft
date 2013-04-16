@@ -103,7 +103,7 @@ class QuizzController {
 		}
 		
 		if (quizzInstance.state == Quizz.STATE_VOTING) {
-			flash.error = "Voting phase has already started."
+			flash.message = "Voting phase has already started."
 		}
 		else {
 			quizzInstance.state = Quizz.STATE_VOTING
@@ -133,14 +133,31 @@ class QuizzController {
 			flash.message = "Voting phase over."
 		}
 		
-		// TODO on va a la page de stats ?
 		redirect(action: "show", id: id)
 	}
 	
 	def showStats(Long id) {
 		def quizzInstance = Quizz.get(id)
-		if (!quizzInstance || quizzInstance.state != Quizz.STATE_CLOSED) {
+		if (!quizzInstance) {
 			render(view: "/error.gsp")
+			return
+		}
+		
+		if (quizzInstance.state != Quizz.STATE_CLOSED) {
+			flash.error = "You have to close the vote before you can display statistics."
+			redirect(action: "show", id: id)
+			return
+		}
+		
+		if (quizzInstance.voteCount < 1) {
+			flash.message = "No votes have been saved for this quizz. Can't build statistics."
+			
+			if (SecurityUtils.getSubject().hasRole("ROLE_TEACHER")) {
+				redirect(action: "show", id: id)
+			}
+			else {
+				redirect(action: "list")
+			}						
 			return
 		}
 		

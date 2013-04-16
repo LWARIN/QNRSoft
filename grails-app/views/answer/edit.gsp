@@ -10,7 +10,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list">Answer List</g:link></li>
+				<li><g:link class="back" action="show" id="${answerInstance?.id}"><g:message code="default.back.label" default="Back to Answer" /></g:link></li>
 			</ul>
 		</div>
 		<div id="edit-answer" class="content scaffold-edit" role="main">

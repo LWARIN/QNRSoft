@@ -181,10 +181,7 @@ img.title {
 }
 
 .nav li.log {
-	position: absolute;
-	top: 17.8%;
-	right: 17.5%;
-	/*background-color: #000000*/
+	float: right;
 }
 
 .nav a {
@@ -214,7 +211,7 @@ img.title {
 	text-decoration: underline;
 }
 
-.nav a.home, .nav a.list, .nav a.create {
+.nav a.home, .nav a.list, .nav a.create, .nav a.back {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -230,6 +227,10 @@ img.title {
 
 .nav a.create {
 	background-image: url(../images/skin/database_add.png);
+}
+
+.nav a.back {
+	background-image: url(../images/skin/back.png);
 }
 
 /* CREATE/EDIT FORMS AND SHOW PAGES */
@@ -608,7 +609,7 @@ th:hover, tr:hover {
 	text-decoration: underline;
 }
 
-.buttons .delete, .buttons .edit, .buttons .save, .buttons .submit, .buttons .show, .buttons .attach {
+.buttons .delete, .buttons .edit, .buttons .save, .buttons .submit, .buttons .show, .buttons .attach, .buttons .stats {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -641,6 +642,10 @@ th:hover, tr:hover {
 
 .buttons .attach {
 	background-image: url(../images/skin/attach.png);
+}
+
+.buttons .stats {
+	background-image: url(../images/skin/stats.png);
 }
 
 a.skip {
