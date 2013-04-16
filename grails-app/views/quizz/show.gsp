@@ -35,14 +35,14 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${quizzInstance?.onScreen}">
+				
 				<li class="fieldcontain">
 					<span id="onScreen-label" class="property-label"><g:message code="quizz.onScreen.label" default="On Screen" /></span>
 					
 					<span class="property-value" aria-labelledby="onScreen-label"><g:formatBoolean boolean="${quizzInstance?.onScreen}" /></span>
 					
 				</li>
-				</g:if>
+		
 			
 				<g:if test="${quizzInstance?.state}">
 				<li class="fieldcontain">
@@ -94,12 +94,23 @@
 					<g:hiddenField name="id" value="${quizzInstance?.id}" />
 					<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-					<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]"><g:message code="default.button.add.label" default="Add Answer" /></g:link>
-					<g:link class="show" action="vote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="View Vote" /></g:link>
-					<g:link action="startVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Start Vote" /></g:link>
-					<g:link action="endVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="End Vote" /></g:link>
-					<g:link action="showStats" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Show Stats" /></g:link>
-					<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');"><g:message code="default.button.show.label" default="Reset Votes" /></g:link>
+					<!--  Quizz à l'état OUVERT -->
+					<g:if test="${quizzInstance.state == Quizz.STATE_OPENED}">
+						<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]"><g:message code="default.button.add.label" default="Add Answer" /></g:link>
+						<g:link action="startVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Start Vote" /></g:link>
+					</g:if>		
+					
+					<!--  Quizz à l'état VOTE -->
+					<g:if test="${quizzInstance.state == Quizz.STATE_VOTING}">
+						<g:link class="show" action="vote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="View Vote" /></g:link>
+						<g:link action="endVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="End Vote" /></g:link>
+						<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');"><g:message code="default.button.show.label" default="Reset Votes" /></g:link>
+					</g:if>	
+				
+					<!--  Quizz à l'état CLOSE -->
+					<g:if test="${quizzInstance.state == Quizz.STATE_CLOSED}">
+						<g:link action="showStats" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Show Stats" /></g:link>
+					</g:if>
 				</fieldset>
 			</g:form>
 		</div>
