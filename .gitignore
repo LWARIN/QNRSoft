@@ -4,3 +4,5 @@ target-eclipse
 stacktrace.log
 .settings
 .classpath
+devDb.h2.db
+devDb.lock.db
