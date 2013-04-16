@@ -16,6 +16,6 @@ class Quizz {
     static constraints = {
 		question blank: false
 		onScreen blank: false
-		state blank: false, inList: [STATE_CLOSED, STATE_OPENED, STATE_VOTING]
+		state blank: false, inList: [STATE_OPENED, STATE_CLOSED, STATE_VOTING]
     }
 }

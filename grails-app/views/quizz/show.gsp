@@ -14,6 +14,7 @@
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list">Quizz List</g:link></li>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
+				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login" params="[targetUri: '/quizz/show/' + quizzInstance?.id]"><g:message code="default.signin.label" default="Sign in" /></g:link></li></shiro:isNotLoggedIn>
 			</ul>
 		</div>
 		<div id="show-quizz" class="content scaffold-show" role="main">
@@ -49,6 +50,15 @@
 					<span id="state-label" class="property-label"><g:message code="quizz.state.label" default="State" /></span>
 					
 					<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="state"/></span>
+					
+				</li>
+				</g:if>
+				
+				<g:if test="${quizzInstance?.voteCount != null}">
+				<li class="fieldcontain">
+					<span id="voteCount-label" class="property-label"><g:message code="quizz.voteCount.label" default="Total Votes" /></span>
+					
+					<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="voteCount"/></span>
 					
 				</li>
 				</g:if>
@@ -92,29 +102,56 @@
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${quizzInstance?.id}" />
+					
+					
+					<%--<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>-->
+					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">Add Answer</g:link>
+					<g:link class="show" action="vote" id="${quizzInstance?.id}">View Vote</g:link>
+					<g:link action="startVote" id="${quizzInstance?.id}">Start Vote</g:link>
+					<g:link action="endVote" id="${quizzInstance?.id}">Close Vote</g:link>
+					<g:link class="stats" action="showStats" id="${quizzInstance?.id}">Show Stats</g:link>
+					<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');">Reset Votes</g:link>
+					--%>
+					
+					
 					<shiro:hasRole name="ROLE_TEACHER">
 						<g:link class="edit" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 						<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+						<g:if test="${!quizzInstance?.onScreen}">
+							<g:link action="onScreen" id="${quizzInstance?.id}">Set on Screen</g:link>
+						</g:if>
+						<g:else>
+							<g:link action="onScreen" id="${quizzInstance?.id}">Hide</g:link>
+						</g:else>
 					</shiro:hasRole>
-					<!--  Quizz à l'état OUVERT -->
-					<g:if test="${quizzInstance.state == Quizz.STATE_OPENED}">
-						<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]"><g:message code="default.button.add.label" default="Add Answer" /></g:link>
-						<shiro:hasRole name="ROLE_TEACHER"><g:link action="startVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Start Vote" /></g:link></shiro:hasRole>
-					</g:if>		
 					
-					<!--  Quizz à l'état VOTE -->
-					<g:if test="${quizzInstance.state == Quizz.STATE_VOTING}">
-						<g:link class="show" action="vote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="View Vote" /></g:link>
+					<%--  Quizz à l'état OUVERT --%>
+					<g:if test="${quizzInstance.state == Quizz.STATE_OPENED}">
+						<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">Add Answer</g:link>
 						<shiro:hasRole name="ROLE_TEACHER">
-							<g:link action="endVote" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="End Vote" /></g:link>
-						<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');"><g:message code="default.button.show.label" default="Reset Votes" /></g:link>	
-						</shiro:hasRole>		
-					</g:if>	
-				
-					<!--  Quizz à l'état CLOSE -->
-					<g:if test="${quizzInstance.state == Quizz.STATE_CLOSED}">
-						<g:link action="showStats" id="${quizzInstance?.id}"><g:message code="default.button.show.label" default="Show Stats" /></g:link>
+							<g:link controller="vote" action="start" id="${quizzInstance?.id}">Start Vote</g:link>
+							<g:if test="${quizzInstance.voteCount > 0}">
+								<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');">Reset Votes</g:link>	
+							</g:if>
+						</shiro:hasRole>
 					</g:if>
+					
+					<%--  Quizz à l'état VOTE --%>
+					<g:elseif test="${quizzInstance.state == Quizz.STATE_VOTING}">
+						<g:link class="show" controller="vote" action="show" id="${quizzInstance?.id}">View Vote</g:link>
+						<shiro:hasRole name="ROLE_TEACHER">
+							<g:link controller="vote" action="reopen" id="${quizzInstance?.id}">Reopen</g:link>
+							<g:link controller="vote" action="end" id="${quizzInstance?.id}">End Vote</g:link>
+							<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');">Reset Votes</g:link>	
+						</shiro:hasRole>		
+					</g:elseif>	
+				
+					<%--  Quizz à l'état CLOSE --%>
+					<g:else test="${quizzInstance.state == Quizz.STATE_CLOSED}">
+						<shiro:hasRole name="ROLE_TEACHER"><g:link controller="vote" action="start" id="${quizzInstance?.id}">Restart Vote</g:link></shiro:hasRole>
+						<g:link class="stats" controller="stats" action="show" id="${quizzInstance?.id}">Show Stats</g:link>
+					</g:else>
 				</fieldset>
 			</g:form>
 		</div>
