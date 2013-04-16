@@ -52,7 +52,7 @@ class QuizzController {
 			else if (quizzInstance.state == Quizz.STATE_CLOSED) {
 				redirect(action: "showStats", id: id)
 			}
-			else {
+			else { // Pour le State Opened
 				redirect(action: "list")
 			}
 			return
