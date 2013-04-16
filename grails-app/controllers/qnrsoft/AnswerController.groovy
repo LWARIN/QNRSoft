@@ -45,7 +45,7 @@ class AnswerController {
 		def answerInstance = Answer.get(id)
 		if (!answerInstance) {
 			flash.error = message(code: 'default.not.found.message', args: [message(code: 'answer.label', default: 'Answer'), id])
-			redirect(action: "list")
+			redirect(controller: "quizz", action: "list")
 			return
 		}
 		

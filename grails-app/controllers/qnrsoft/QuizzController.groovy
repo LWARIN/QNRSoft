@@ -47,10 +47,10 @@ class QuizzController {
 		
 		if (!SecurityUtils.getSubject().hasRole("ROLE_TEACHER")) {
 			if (quizzInstance.state == Quizz.STATE_VOTING) {
-				redirect(action: "vote", id: id)
+				redirect(controller:"vote", action: "show", id: id)
 			}
 			else if (quizzInstance.state == Quizz.STATE_CLOSED) {
-				redirect(action: "showStats", id: id)
+				redirect(controller: "stats", action: "show", id: id)
 			}
 			else { // Pour le State Opened
 				redirect(action: "list")
@@ -60,108 +60,17 @@ class QuizzController {
 
 		[quizzInstance: quizzInstance]
 	}
-
-	def vote(Long id) {
-		def quizzInstance = Quizz.get(id)
-		if (!quizzInstance || quizzInstance.state != Quizz.STATE_VOTING) {
-			render(view: "/error.gsp", exception: 'test')
-			return
-		}
-		
-		[quizzInstance: quizzInstance]
-	}	
 	
-	def submitVote(Long id) {
+	def onScreen(Long id) {
 		def quizzInstance = Quizz.get(id)
-		def checkedAnswers = params.list('checkAnswers')
-		def selectedAnswers = Answer.getAll(checkedAnswers)
-		
-		if (selectedAnswers.isEmpty()) {
-			flash.error = "You have to select at least one answer."
-			redirect(action: "vote", id: id)
-			return
-		}
-		
-		quizzInstance.voteCount++
-		quizzInstance.save()
-		
-		for (Answer answer : selectedAnswers) {
-			answer.voteCount++
-			answer.save()
-		}
-		
-		flash.message = "Vote accepted."
-		redirect(action: "list")
-	}
-	
-	def startVote(Long id) {
-		def quizzInstance = Quizz.get(id)
-		
 		if (!quizzInstance) {
 			render(view: "/error.gsp")
 			return
 		}
 		
-		if (quizzInstance.state == Quizz.STATE_VOTING) {
-			flash.message = "Voting phase has already started."
-		}
-		else {
-			quizzInstance.state = Quizz.STATE_VOTING
-			//TODO save cascade
-			quizzInstance.save()
-			flash.message = "Voting phase started."
-		}		
+		quizzInstance.onScreen = !quizzInstance.onScreen
 		
 		redirect(action: "show", id: id)
-	}
-	
-	def endVote(Long id) {
-		def quizzInstance = Quizz.get(id)
-		
-		if (!quizzInstance) {
-			render(view: "/error.gsp")
-			return
-		}
-		
-		if (quizzInstance.state == Quizz.STATE_CLOSED) {
-			flash.error = "Voting phase is already over."
-		}
-		else {
-			quizzInstance.state = Quizz.STATE_CLOSED
-			//TODO save cascade
-			quizzInstance.save()
-			flash.message = "Voting phase over."
-		}
-		
-		redirect(action: "show", id: id)
-	}
-	
-	def showStats(Long id) {
-		def quizzInstance = Quizz.get(id)
-		if (!quizzInstance) {
-			render(view: "/error.gsp")
-			return
-		}
-		
-		if (quizzInstance.state != Quizz.STATE_CLOSED) {
-			flash.error = "You have to close the vote before you can display statistics."
-			redirect(action: "show", id: id)
-			return
-		}
-		
-		if (quizzInstance.voteCount < 1) {
-			flash.message = "No votes have been saved for this quizz. Can't build statistics."
-			
-			if (SecurityUtils.getSubject().hasRole("ROLE_TEACHER")) {
-				redirect(action: "show", id: id)
-			}
-			else {
-				redirect(action: "list")
-			}						
-			return
-		}
-		
-		render(view: "stats", model: [quizzInstance: quizzInstance])
 	}
 	
 	def resetVotes(Long id) {
