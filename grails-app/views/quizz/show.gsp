@@ -69,7 +69,7 @@
 					
 					<g:each in="${quizzInstance.answers}" var="a">
 					<answer:isPending status="${a.status}">
-						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
+						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">${a?.answer} - ${a?.validity}</g:link></span>
 					</answer:isPending>		
 					</g:each>
 					
@@ -80,7 +80,7 @@
 					
 					<g:each in="${quizzInstance.answers}" var="a">
 					<answer:isApproved status="${a.status}">
-						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
+						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">${a?.answer} - ${a?.validity}</g:link></span>
 					</answer:isApproved>		
 					</g:each>
 					
@@ -91,7 +91,7 @@
 					
 					<g:each in="${quizzInstance.answers}" var="a">
 					<answer:isRejected status="${a.status}">
-						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
+						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">${a?.answer} - ${a?.validity}</g:link></span>
 					</answer:isRejected>		
 					</g:each>
 					

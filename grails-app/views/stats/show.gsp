@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<title>QnR - Statistics</title>
+		<title>QnR - Results</title>
 	</head>
 	<body>
 		<gvisualization:apiImport/>
@@ -29,16 +29,27 @@
 			</g:if>
 			
 			<shiro:hasRole name="ROLE_TEACHER">
-				<gvisualization:pieCoreChart elementId="piechart" title="${quizzInstance.question + " (" + (quizzInstance.voteCount as String) + " votes)"}" width="${750}" height="${600}" columns="${columns}" data="${answers}" />
+				<gvisualization:pieCoreChart elementId="piechart" title="${quizzInstance.question + " (" + (quizzInstance.voteCount as String) + " votes)"}" width="${750}" height="${600}" columns="${columns}" data="${data}" />
 			
 				<span style="display: block; margin-left: 15%"><div id="piechart"></div></span>
 			</shiro:hasRole>
 			
 			<ol class="property-list">
-				<g:each in="${test}" var="b">
+			
+				<shiro:lacksRole name="ROLE_TEACHER">
+					<g:if test="${quizzInstance?.question}">
+						<li class="fieldtitle">
+							
+							<span><g:fieldValue bean="${quizzInstance}" field="question"/></span>
+							
+						</li>
+					</g:if>
+				</shiro:lacksRole>
+			
+				<g:each in="${answers}" var="ans">
 					<li class="fieldcontain">
-						<span id="answers-label" class="property-label">${b.answer + " (" + b.validity + ")"}</span>
-						<span class="property-value" aria-labelledby="answers-label">${b.comment}</span>
+						<span id="answers-label" class="property-label">${ans.answer + " (" + ans.validity + ")"}</span>
+						<span class="property-value" aria-labelledby="answers-label">${ans.comment}</span>
 					</li>
 				</g:each>
 			</ol>

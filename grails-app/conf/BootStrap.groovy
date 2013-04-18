@@ -7,7 +7,8 @@ class BootStrap {
 	
 	def shiroSecurityService
 
-    def init = { servletContext ->
+    def init = { servletContext ->		
+		
 		/*
 		// Create the admin role
 		def teacherRole = Role.findByName('ROLE_TEACHER') ?:
@@ -18,6 +19,8 @@ class BootStrap {
 			new User(username: "admin",
 					passwordHash: shiroSecurityService.encodePassword('password'))
 					.save(flush: true, failOnError: true)
+					
+		def studentRole = new Role(name: 'ROLE_STUDENT').save(flosh: true, failOnError: true)
 
 		// Add roles to the admin user
 		assert adminUser.addToRoles(teacherRole)

@@ -59,7 +59,7 @@
 					
 					</shiro:hasRole>
 					
-					<shiro:isNotLoggedIn>
+					<shiro:lacksRole name="ROLE_TEACHER">
 						<g:if test="${quizzInstance.onScreen}">
 							<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 						
@@ -73,7 +73,7 @@
 						
 							</tr>					
 						</g:if>
-					</shiro:isNotLoggedIn>
+					</shiro:lacksRole>
 					
 				</g:each>
 				</tbody>

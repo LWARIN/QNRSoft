@@ -250,6 +250,17 @@ fieldset,
 	zoom: 1;
 }
 
+.fieldtitle {
+	margin-top: 1em;
+	list-style: none;
+	overflow: hidden;
+	zoom: 1;
+	margin-bottom: 50px;
+	text-align: center;
+	font-weight:bold;
+	font-size:120%
+}
+
 .fieldcontain {
 	margin-top: 1em;
 }

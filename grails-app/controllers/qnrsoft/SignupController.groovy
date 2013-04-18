@@ -19,8 +19,8 @@ class SignupController {
 			return
 		}
 		
-		if (params.username.length() < 2) {
-			flash.error = "The username must contain at least 2 characters."
+		if (params.username.length() < 2 || params.username.length() > 10) {
+			flash.error = "The username must contain between 2 and 10 characters."
 			redirect(action: 'index')
 			return
 		}
@@ -60,12 +60,13 @@ class SignupController {
 				if (user.save()) {
 
 					// Add USER role to new user
-					//user.addToRoles(Role.findByName('ROLE_USER'))
+					user.addToRoles(Role.findByName('ROLE_STUDENT'))
 
 					// Login user
 					def authToken = new UsernamePasswordToken(user.username, params.password)
 					SecurityUtils.subject.login(authToken)
 
+					flash.message = "You are now logged in as '${user.username}'"
 					redirect(uri: "/")
 				}
 			}

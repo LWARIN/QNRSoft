@@ -11,7 +11,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="back" controller="answer" action="show" id="${answerInstance?.id}"><g:message code="default.back.label" default="Back to Answer" /></g:link></li>
-				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut"><g:message code="default.logout.label" default="Logout" /></g:link></li></shiro:isLoggedIn>
+				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut">Logout: <shiro:principal/></g:link></li></shiro:isLoggedIn>
 			</ul>
 		</div>
 		<div id="edit-answer" class="content scaffold-edit" role="main">
@@ -62,7 +62,7 @@
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${answerInstance?.id}" />
 					<g:hiddenField name="version" value="${answerInstance?.version}" />
-					<g:actionSubmit class="save" action="update" value="OK" />
+					<g:actionSubmit class="save" action="update" value="Ok" />
 				</fieldset>
 			</g:form>
 		</div>
