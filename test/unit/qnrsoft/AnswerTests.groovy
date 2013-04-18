@@ -11,7 +11,27 @@ import org.junit.*
 @TestFor(Answer)
 class AnswerTests {
 
-    void testSomething() {
-       fail "Implement me"
+    void testConstraints() {
+       Answer ans = new Answer()
+
+		assert !ans.validate()
+		assert "nullable" == ans.errors["answer"].code
+
+		ans = new Answer(answer:"4",
+			status:"Status",
+			validity:"Wrong",
+			comment:"",
+			voteCount:0)
+
+		assert !ans.validate()
+		assert "not.inList" == ans.errors["status"].code
+
+		ans = new Answer(answer : "Je dirais que ca fait 4",
+			status : Answer.STATUS_APPROVED, validity : Answer.VALIDITY_CORRECT,
+			comment : "salut", voteCount: 0)
+		
+		// ?
+
+		assert ans.validate()
     }
 }
