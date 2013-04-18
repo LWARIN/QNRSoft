@@ -67,33 +67,33 @@
 				<li class="fieldcontain">
 					<span id="answers-label" class="property-label">Pending Answers</span>
 					
-						<g:each in="${quizzInstance.answers}" var="a">
-						<g:if test="${a.status == Answer.STATUS_PENDING}">
-							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
-						</g:if>						
-						</g:each>
+					<g:each in="${quizzInstance.answers}" var="a">
+					<answer:isPending status="${a.status}">
+						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
+					</answer:isPending>		
+					</g:each>
 					
 				</li>
 				
 				<li class="fieldcontain">
 					<span id="answers-label" class="property-label">Approved Answers</span>
 					
-						<g:each in="${quizzInstance.answers}" var="a">
-						<g:if test="${a?.status == Answer.STATUS_APPROVED}">
-							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
-						</g:if>						
-						</g:each>
+					<g:each in="${quizzInstance.answers}" var="a">
+					<answer:isApproved status="${a.status}">
+						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
+					</answer:isApproved>		
+					</g:each>
 					
 				</li>
 				
 				<li class="fieldcontain">
 					<span id="answers-label" class="property-label">Rejected Answers</span>
 					
-						<g:each in="${quizzInstance.answers}" var="a">
-						<g:if test="${a?.status == Answer.STATUS_REJECTED}">
-							<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
-						</g:if>						
-						</g:each>
+					<g:each in="${quizzInstance.answers}" var="a">
+					<answer:isRejected status="${a.status}">
+						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">#${a?.id}: ${a?.answer} - ${a?.validity}</g:link></span>
+					</answer:isRejected>		
+					</g:each>
 					
 				</li>
 				</g:if>
@@ -114,7 +114,7 @@
 						</g:else>
 					</shiro:hasRole>
 					
-					<g:quizzState name="${Quizz.STATE_OPENED}" instanceState="${quizzInstance?.state}">
+					<quizz:isOpened state="${quizzInstance?.state}">
 						<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">Add Answer</g:link>
 						<shiro:hasRole name="ROLE_TEACHER">
 							<g:link controller="vote" action="start" id="${quizzInstance?.id}">Start Vote</g:link>
@@ -122,21 +122,21 @@
 								<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');">Reset Votes</g:link>	
 							</g:if>
 						</shiro:hasRole>
-					</g:quizzState>
+					</quizz:isOpened>
 					
-					<g:quizzState name="${Quizz.STATE_VOTING}" instanceState="${quizzInstance?.state}">
+					<quizz:isVoting state="${quizzInstance?.state}">
 						<g:link class="show" controller="vote" action="show" id="${quizzInstance?.id}">View Vote</g:link>
 						<shiro:hasRole name="ROLE_TEACHER">
 							<g:link controller="vote" action="reopen" id="${quizzInstance?.id}">Reopen</g:link>
 							<g:link controller="vote" action="end" id="${quizzInstance?.id}">End Vote</g:link>
 							<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');">Reset Votes</g:link>	
 						</shiro:hasRole>
-					</g:quizzState>
+					</quizz:isVoting>
 					
-					<g:quizzState name="${Quizz.STATE_CLOSED}" instanceState="${quizzInstance?.state}">
+					<quizz:isClosed state="${quizzInstance?.state}">
 						<shiro:hasRole name="ROLE_TEACHER"><g:link controller="vote" action="start" id="${quizzInstance?.id}">Restart Vote</g:link></shiro:hasRole>
 						<g:link class="stats" controller="stats" action="show" id="${quizzInstance?.id}">Show Stats</g:link>
-					</g:quizzState>
+					</quizz:isClosed>
 				</fieldset>
 			</g:form>
 		</div>

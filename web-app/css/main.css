@@ -270,6 +270,12 @@ fieldset,
 	margin-left: 29%;
 }
 
+.fieldcontain .property-value-checkbox {
+	display: block;
+	margin-left: 29%;
+	margin-bottom: 20px;
+}
+
 .add-answer-field {
 	margin-left: 40%;
 	font-size: 1.3em;

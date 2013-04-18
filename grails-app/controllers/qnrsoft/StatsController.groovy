@@ -30,6 +30,17 @@ class StatsController {
 			return
 		}
 		
-		[quizzInstance: quizzInstance]
+		def columns = [['string', 'Answer'], ['number', 'Count of Votes']]
+		def answers = []
+		def blah = []
+		
+		for (Answer a : quizzInstance.answers) {
+			if (a.status == Answer.STATUS_APPROVED) {
+				answers.add([a.answer + ' (' + a.validity + ')', a.voteCount])
+				blah.add(a)
+			}
+		}
+		
+		[quizzInstance: quizzInstance, columns: columns, answers: answers, test: blah]
 	}
 }

@@ -43,11 +43,11 @@
 					<li class="fieldcontain">
 						<span id="answers-label" class="property-label">Answers</span>
 						
-							<g:each in="${quizzInstance.answers}" var="a">
-							<g:if test="${a.status == Answer.STATUS_APPROVED}">
-								<span class="property-value" aria-labelledby="answers-label"><g:checkBox name="checkAnswers" value="${a.id}" checked="false" style="margin-bottom: 20px"/> ${a.answer}</span>
-							</g:if>						
-							</g:each>
+						<g:each in="${quizzInstance.answers}" var="a">
+						<g:if test="${a.status == Answer.STATUS_APPROVED}">
+							<span class="property-value-checkbox" aria-labelledby="answers-label"><g:checkBox name="checkAnswers" value="${a.id}" checked="false"/> ${a.answer}</span>
+						</g:if>						
+						</g:each>
 						
 					</li>
 					
