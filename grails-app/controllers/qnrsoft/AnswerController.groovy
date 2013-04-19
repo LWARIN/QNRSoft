@@ -89,7 +89,7 @@ class AnswerController {
         }
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'answer.label', default: 'Answer'), answerInstance.id])
-        redirect(action: "show", id: answerInstance.id)
+        redirect(controller:"quizz", action: "show", id: answerInstance.quizz.id)
     }
 
     def delete(Long id) {
@@ -103,7 +103,7 @@ class AnswerController {
         try {
             answerInstance.delete(flush: true)
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'answer.label', default: 'Answer'), id])
-            redirect(action: "list")
+            redirect(controller:"quizz", action: "show", id: answerInstance.quizz.id)
         }
         catch (DataIntegrityViolationException e) {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'answer.label', default: 'Answer'), id])

@@ -13,6 +13,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list">Quizz List</g:link></li>
+				<li><g:link class="create" action="create">New Quizz</g:link></li>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut">Logout: <shiro:principal/></g:link></li></shiro:isLoggedIn>
 				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login" params="[targetUri: '/quizz/show/' + quizzInstance?.id]"><g:message code="default.signin.label" default="Sign in" /></g:link></li></shiro:isNotLoggedIn>
 			</ul>
@@ -70,7 +71,7 @@
 					<g:each in="${quizzInstance.answers}" var="a">
 					<answer:isPending status="${a.status}">
 						<span class="property-value" aria-labelledby="answers-label">
-							<g:link controller="answer" action="show" id="${a.id}">${a?.answer} - ${a?.validity}</g:link>
+							<g:link controller="answer" action="edit" id="${a.id}">${a?.answer} - ${a?.validity}</g:link>
 						</span>
 					</answer:isPending>		
 					</g:each>
@@ -82,7 +83,9 @@
 					
 					<g:each in="${quizzInstance.answers}" var="a">
 					<answer:isApproved status="${a.status}">
-						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">${a?.answer} - ${a?.validity}</g:link></span>
+						<span class="property-value" aria-labelledby="answers-label">
+							<g:link controller="answer" action="edit" id="${a?.id}">${a?.answer} - ${a?.validity}</g:link>
+						</span>
 					</answer:isApproved>		
 					</g:each>
 					
@@ -93,7 +96,9 @@
 					
 					<g:each in="${quizzInstance.answers}" var="a">
 					<answer:isRejected status="${a.status}">
-						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a?.id}">${a?.answer} - ${a?.validity}</g:link></span>
+						<span class="property-value" aria-labelledby="answers-label">
+							<g:link controller="answer" action="edit" id="${a?.id}">${a?.answer} - ${a?.validity}</g:link>
+						</span>
 					</answer:isRejected>		
 					</g:each>
 					
