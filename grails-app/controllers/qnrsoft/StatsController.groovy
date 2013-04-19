@@ -7,7 +7,7 @@ class StatsController {
 
     def show(Long id) {
 		def quizzInstance = Quizz.get(id)
-		if (!quizzInstance) {
+		if (!quizzInstance || (!quizzInstance.onScreen && !SecurityUtils.getSubject().hasRole("ROLE_TEACHER"))) {
 			render(view: "/error.gsp")
 			return
 		}

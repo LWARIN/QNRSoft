@@ -4,7 +4,7 @@ class VoteController {
 
     def show(Long id) {
 		def quizzInstance = Quizz.get(id)
-		if (!quizzInstance || quizzInstance.state != Quizz.STATE_VOTING) {
+		if (!quizzInstance || quizzInstance.state != Quizz.STATE_VOTING || !quizzInstance.onScreen) {
 			render(view: "/error.gsp")
 			return
 		}

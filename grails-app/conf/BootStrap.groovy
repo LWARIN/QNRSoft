@@ -8,8 +8,8 @@ class BootStrap {
 	def shiroSecurityService
 
     def init = { servletContext ->		
-		
 		/*
+		
 		// Create the admin role
 		def teacherRole = Role.findByName('ROLE_TEACHER') ?:
 			new Role(name: 'ROLE_TEACHER').save(flush: true, failOnError: true)
