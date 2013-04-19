@@ -36,6 +36,11 @@
 		
 	</div>
 </shiro:hasRole>
+<shiro:hasRole name="ROLE_STUDENT">
+	<g:hiddenField name="status" value="${Answer.STATUS_PENDING}" />
+	<g:hiddenField name="validity" value="${Answer.VALIDITY_PENDING}" />
+	<g:hiddenField name="comment" value="" />
+</shiro:hasRole>
 <%-- Le quizz correspondant à la réponse (on le cache) --%>
 <g:hiddenField id="quizz" name="quizz.id" from="${qnrsoft.Quizz.list()}" optionKey="id" required="" value="${answerInstance?.quizz?.id}" class="many-to-one"/>
 

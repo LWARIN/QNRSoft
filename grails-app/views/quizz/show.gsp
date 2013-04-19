@@ -35,8 +35,7 @@
 					
 				</li>
 				</g:if>
-			
-				
+	<shiro:hasRole name="ROLE_TEACHER">		
 				<li class="fieldcontain">
 					<span id="onScreen-label" class="property-label"><g:message code="quizz.onScreen.label" default="On Screen" /></span>
 					
@@ -62,14 +61,17 @@
 					
 				</li>
 				</g:if>
-			
+			</shiro:hasRole>	
 				<g:if test="${quizzInstance?.answers}">
+				<shiro:hasRole name="ROLE_TEACHER">
 				<li class="fieldcontain">
 					<span id="answers-label" class="property-label">Pending Answers</span>
 					
 					<g:each in="${quizzInstance.answers}" var="a">
 					<answer:isPending status="${a.status}">
-						<span class="property-value" aria-labelledby="answers-label"><g:link controller="answer" action="show" id="${a.id}">${a?.answer} - ${a?.validity}</g:link></span>
+						<span class="property-value" aria-labelledby="answers-label">
+							<g:link controller="answer" action="show" id="${a.id}">${a?.answer} - ${a?.validity}</g:link>
+						</span>
 					</answer:isPending>		
 					</g:each>
 					
@@ -96,6 +98,19 @@
 					</g:each>
 					
 				</li>
+				</shiro:hasRole>
+				<shiro:hasRole name="ROLE_STUDENT">
+					<li class="fieldcontain">
+					<span id="answers-label" class="property-label">Submited Answers</span>
+					
+					<g:each in="${quizzInstance.answers}" var="a">
+						<span class="property-value" aria-labelledby="answers-label">
+							<g:fieldValue bean="${a}" field="answer"/>
+						</span>	
+					</g:each>
+					
+				</li>
+				</shiro:hasRole>
 				</g:if>
 			
 			</ol>
