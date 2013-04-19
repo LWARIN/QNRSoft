@@ -52,6 +52,14 @@
 						<span class="property-value" aria-labelledby="answers-label">${ans.comment}</span>
 					</li>
 				</g:each>
+				
+				<h1 style="margin-top:50px">Rejected Answers</h1>
+				<g:each in="${rejected}" var="rej">
+					<li class="fieldcontain">
+						<span id="answers-label" class="property-label">${rej.answer}</span>
+						<span class="property-value" aria-labelledby="answers-label">${rej.comment}</span>
+					</li>
+				</g:each>
 			</ol>
 			
 		</div>

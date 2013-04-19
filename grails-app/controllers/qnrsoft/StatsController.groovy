@@ -33,14 +33,18 @@ class StatsController {
 		def columns = [['string', 'Answer'], ['number', 'Count of Votes']]
 		def data = []
 		def answers = []
+		def rejected = []
 		
 		for (Answer a : quizzInstance.answers) {
 			if (a.status == Answer.STATUS_APPROVED) {
 				data.add([a.answer + ' (' + a.validity + ')', a.voteCount])
 				answers.add(a)
 			}
+			else if (a.status == Answer.STATUS_REJECTED) {
+				rejected.add(a)
+			}
 		}
 		
-		[quizzInstance: quizzInstance, columns: columns, data: data, answers: answers]
+		[quizzInstance: quizzInstance, columns: columns, data: data, answers: answers, rejected: rejected]
 	}
 }

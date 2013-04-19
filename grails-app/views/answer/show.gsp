@@ -65,7 +65,6 @@
 					<g:hiddenField name="id" value="${answerInstance?.id}" />
 					<g:link class="edit" action="edit" id="${answerInstance?.id}">Edit Answer</g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-					<g:link action="comment" id="${answerInstance?.id}">Edit Comment</g:link>
 				</fieldset>
 			</g:form>
 		</div>
