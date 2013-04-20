@@ -21,5 +21,11 @@ class AnswerTagLib {
 			out << body{}
 		}
 	}
+	
+	def grade = { attrs, body ->
+		if (attrs.value >= 0) {
+			out << body{}
+		}
+	}
 
 }

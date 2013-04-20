@@ -38,17 +38,15 @@
 			
 				<shiro:lacksRole name="ROLE_TEACHER">
 					<g:if test="${quizzInstance?.question}">
-						<li class="fieldtitle">
-							
-							<span><g:fieldValue bean="${quizzInstance}" field="question"/></span>
-							
+						<li class="fieldtitle">							
+							<span><g:fieldValue bean="${quizzInstance}" field="question"/></span>							
 						</li>
 					</g:if>
 				</shiro:lacksRole>
 			
 				<g:each in="${answers}" var="ans">
 					<li class="fieldcontain">
-						<span id="answers-label" class="property-label">${ans.answer + " (" + ans.validity + ")"}</span>
+						<span id="answers-label" class="property-label">${ans.answer} (${ans.validity}<answer:grade value="${ans.grade}"> - ${ans.grade}/10</answer:grade>)</span>
 						<span class="property-value" aria-labelledby="answers-label">${ans.comment}</span>
 					</li>
 				</g:each>

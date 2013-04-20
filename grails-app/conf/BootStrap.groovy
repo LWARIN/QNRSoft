@@ -11,18 +11,27 @@ class BootStrap {
 		
 		
 		// Create the admin role
-		def teacherRole = new Role(name: 'ROLE_TEACHER').save(flush: true, failOnError: true)
-
+		def teacherRole = new Role(name: 'ROLE_TEACHER').save(flush: true, failOnError: true)		
+					
+		def studentRole = new Role(name: 'ROLE_STUDENT').save(flush: true, failOnError: true)
+		
 		// Create an admin user
 		def adminUser = User.findByUsername('admin') ?:
 			new User(username: "admin@qnr.fr",
 					passwordHash: shiroSecurityService.encodePassword('password'))
 					.save(flush: true, failOnError: true)
 					
-		def studentRole = new Role(name: 'ROLE_STUDENT').save(flush: true, failOnError: true)
+		// Create an admin user
+		def studUser = User.findByUsername('student') ?:
+			new User(username: "student@qnr.fr",
+					passwordHash: shiroSecurityService.encodePassword('password'))
+					.save(flush: true, failOnError: true)
 
 		// Add roles to the admin user
 		assert adminUser.addToRoles(teacherRole)
+				.save(flush: true, failOnError: true)
+				
+		assert studUser.addToRoles(studentRole)
 				.save(flush: true, failOnError: true)
 		
 		def quizz1 = new Quizz(question : "Combien font 2+2 ?",
@@ -41,16 +50,24 @@ class BootStrap {
 				println "An error occured with quizz2"}
 		}
 		
-		def answer1 = new Answer(answer : "Je dirais que ca fait 4",
+		def quizz3 = new Quizz(question : "Un troisème quizz.",
+			onScreen : true, state : Quizz.STATE_OPENED)
+		
+		if(!quizz3.save()) {
+			quizz3.errors.allErrors.each{error ->
+				println "An error occured with quizz3"}
+		}
+		
+		def answer1 = new Answer(answer : "4",
 			status : Answer.STATUS_APPROVED, validity : Answer.VALIDITY_CORRECT, comment : "", voteCount: 75)
 		
-		def answer2 = new Answer(answer : "5 pour moi",
+		def answer2 = new Answer(answer : "5",
 			status : Answer.STATUS_PENDING, validity : Answer.VALIDITY_PENDING, comment : "")
 		
-		def answer3 = new Answer(answer : "Obviously ca fait 32",
+		def answer3 = new Answer(answer : "32",
 			status : Answer.STATUS_APPROVED, validity : Answer.VALIDITY_WRONG, comment : "", voteCount: 19)
 		
-		def answer4 = new Answer(answer : "Ah j'etais a 724 moi",
+		def answer4 = new Answer(answer : "724",
 			status : Answer.STATUS_REJECTED, validity : Answer.VALIDITY_PENDING, comment : "")
 		
 		quizz1.addToAnswers(answer1)

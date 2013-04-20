@@ -13,20 +13,14 @@ class SignupController {
 
 	def register() {
 		
-		if (SecurityUtils.getSubject().isAuthenticated()) {
+		if (SecurityUtils.subject.isAuthenticated()) {
 			flash.error = "You are already logged in."
 			render(view: '/index.gsp')
 			return
 		}
 		
-		/*if (params.username.length() < 2 || params.username.length() > 10) {
-			flash.error = "The username must contain between 2 and 10 characters."
-			redirect(action: 'index')
-			return
-		}*/
-		
-		if (params.password.length() < 2) {
-			flash.error = "The password must contain at least 2 characters."
+		if (params.password.length() < 8) {
+			flash.error = "The password must contain at least 8 characters."
 			redirect(action: 'index')
 			return
 		}

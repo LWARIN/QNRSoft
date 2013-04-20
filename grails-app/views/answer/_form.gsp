@@ -31,16 +31,26 @@
 		<label for="comment">
 			<g:message code="answer.comment.label" default="Comment" />		
 		</label>
-		<%-- <g:textField name="comment" value="${answerInstance?.comment}"/> --%>
 		<g:textArea name="comment" value="${answerInstance?.comment}"/>
 		
 	</div>
+	
+	<div class="fieldcontain ${hasErrors(bean: answerInstance, field: 'grade', 'error')} ">
+		<label for="grade">
+			<g:message code="answer.grade.label" default="Grade" />		
+		</label>
+		<g:select name="grade" from="${-1..10}" class="range" value="${answerInstance?.grade}" valueMessagePrefix="answer.grade"/>
+		Value &lt;-1&gt; will result in displaying no grade for this answer.
+	</div>
 </shiro:hasRole>
+
 <shiro:hasRole name="ROLE_STUDENT">
 	<g:hiddenField name="status" value="${Answer.STATUS_PENDING}" />
 	<g:hiddenField name="validity" value="${Answer.VALIDITY_PENDING}" />
 	<g:hiddenField name="comment" value="" />
+	<g:hiddenField name="grade" value="${-1}" />
 </shiro:hasRole>
+
 <%-- Le quizz correspondant à la réponse (on le cache) --%>
 <g:hiddenField id="quizz" name="quizz.id" from="${qnrsoft.Quizz.list()}" optionKey="id" required="" value="${answerInstance?.quizz?.id}" class="many-to-one"/>
 

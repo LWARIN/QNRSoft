@@ -13,12 +13,13 @@ class Answer {
 	String status
 	String validity
 	String comment
+	int grade = -1
 	int voteCount
 
 	static belongsTo = [quizz : Quizz]
 
 	static constraints = {
-		answer blank : false
+		answer blank: false
 		status blank: false, inList: [
 			STATUS_PENDING,
 			STATUS_APPROVED,
@@ -29,6 +30,7 @@ class Answer {
 			VALIDITY_CORRECT,
 			VALIDITY_WRONG
 		]
-		comment blank : true
+		comment blank: true
+		grade blank: true, range: -1..10
 	}
 }
