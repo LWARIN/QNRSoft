@@ -11,8 +11,10 @@ class QuizzControllerTests {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+		params["question"] = "2+2?"
+		params["onScreen"] = true
+		params["state"] = 'Opened'
+		params["voteCount"] = 70
     }
 
     void testIndex() {
@@ -49,30 +51,51 @@ class QuizzControllerTests {
         assert controller.flash.message != null
         assert Quizz.count() == 1
     }
-
-    void testShow() {
-        controller.show()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/quizz/list'
-
-        populateValidParams(params)
-        def quizz = new Quizz(params)
-
-        assert quizz.save() != null
-
-        params.id = quizz.id
-
-        def model = controller.show()
-
-        assert model.quizzInstance == quizz
-    }
+	
+	void testOnScreen() {
+		controller.onScreen()
+		
+		assert response.redirectedUrl == '/notFound'
+		
+		response.reset()
+		
+		populateValidParams(params)
+		def quizz = new Quizz(params)
+		
+		assert quizz.save() != null
+		
+		params.id = quizz.id
+		controller.onScreen()		
+		
+		assert response.redirectedUrl == "/quizz/show/$quizz.id"
+		assert flash.message != null
+	}
+	
+	void testResetVotes() {
+		controller.resetVotes()
+		
+		assert response.redirectedUrl == '/notFound'
+		
+		response.reset()
+		
+		populateValidParams(params)
+		def quizz = new Quizz(params)
+		
+		assert quizz.save() != null
+		
+		params.id = quizz.id
+		controller.resetVotes()
+		
+		assert quizz.voteCount == 0
+		assert response.redirectedUrl == "/quizz/show/$quizz.id"
+		assert flash.message != null
+	}
 
     void testEdit() {
         controller.edit()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/quizz/list'
+        assert response.redirectedUrl == '/notFound'
 
         populateValidParams(params)
         def quizz = new Quizz(params)
@@ -90,7 +113,7 @@ class QuizzControllerTests {
         controller.update()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/quizz/list'
+        assert response.redirectedUrl == '/notFound'
 
         response.reset()
 
@@ -101,7 +124,7 @@ class QuizzControllerTests {
 
         // test invalid parameters in update
         params.id = quizz.id
-        //TODO: add invalid values to params object
+		params["state"] = 'State'
 
         controller.update()
 
@@ -134,7 +157,7 @@ class QuizzControllerTests {
     void testDelete() {
         controller.delete()
         assert flash.message != null
-        assert response.redirectedUrl == '/quizz/list'
+        assert response.redirectedUrl == '/notFound'
 
         response.reset()
 

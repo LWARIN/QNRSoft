@@ -1,13 +1,17 @@
 <%@ page import="qnrsoft.Answer" %>
 
-
+<div class="fieldcontain">
+	<label>
+		Question
+	</label>
+	<g:fieldValue bean="${answerInstance.quizz}" field="question"/>
+</div>
 
 <div class="fieldcontain ${hasErrors(bean: answerInstance, field: 'answer', 'error')} required">
 	<label for="answer">
 		<g:message code="answer.answer.label" default="Answer" />
 		<span class="required-indicator">*</span>
 	</label>
-	<%-- <g:textField name="answer" required="" value="${answerInstance?.answer}"/> --%>
 	<g:textArea name="answer" required="" value="${answerInstance?.answer}"/>
 </div>
 <shiro:hasRole name="ROLE_TEACHER">

@@ -10,8 +10,12 @@ import org.junit.*
  */
 @TestFor(SignupController)
 class SignupControllerTests {
-
-    void testSomething() {
-       fail "Implement me"
-    }
+	
+	void testIndex() {
+		controller.index()
+		assert response.redirectedUrl == null
+	}
+	
+	// Can't test Register method because the needed plugin
+	// apparently is not available in test environnement
 }

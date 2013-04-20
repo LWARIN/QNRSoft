@@ -18,6 +18,11 @@ class VoteController {
 	
 	def submit(Long id) {
 		def quizzInstance = Quizz.get(id)
+		if (!quizzInstance) {
+			redirect(uri: '/notFound')
+			return
+		}
+		
 		def checkedAnswers = params.list('checkAnswers')
 		def selectedAnswers = Answer.getAll(checkedAnswers)
 		
@@ -40,8 +45,7 @@ class VoteController {
 	}
 	
 	def reopen(Long id) {
-		def quizzInstance = Quizz.get(id)
-		
+		def quizzInstance = Quizz.get(id)		
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -60,8 +64,7 @@ class VoteController {
 	}
 	
 	def start(Long id) {
-		def quizzInstance = Quizz.get(id)
-		
+		def quizzInstance = Quizz.get(id)		
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -80,8 +83,7 @@ class VoteController {
 	}
 	
 	def end(Long id) {
-		def quizzInstance = Quizz.get(id)
-		
+		def quizzInstance = Quizz.get(id)		
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return

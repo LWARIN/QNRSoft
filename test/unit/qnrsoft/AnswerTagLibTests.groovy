@@ -11,7 +11,13 @@ import org.junit.*
 @TestFor(AnswerTagLib)
 class AnswerTagLibTests {
 
-    void testSomething() {
-        fail "Implement me"
-    }
+    void testAnswerStatusTag() {		
+		assert applyTemplate('<answer:isPending status="${status}">${"Salut"}</answer:isPending>', [status: Answer.STATUS_PENDING]) == "Salut"
+		assert applyTemplate('<answer:isApproved status="${status}">${"Salut"}</answer:isApproved>', [status: Answer.STATUS_PENDING]) == ""
+		assert applyTemplate('<answer:isRejected status="${status}">${"Salut"}</answer:isRejected>', [status: Answer.STATUS_REJECTED]) == "Salut"		
+	}
+	
+	void testGradeTag() {
+		assert applyTemplate('<answer:grade value="${value}">${"Grade"}</answer:grade>', [value: 8]) == "Grade"
+	}
 }

@@ -85,7 +85,7 @@ class AnswerController {
         def answerInstance = Answer.get(id)
         if (!answerInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'answer.label', default: 'Answer'), id])
-            redirect(action: "list")
+            redirect(uri: "/notFound")
             return
         }
 

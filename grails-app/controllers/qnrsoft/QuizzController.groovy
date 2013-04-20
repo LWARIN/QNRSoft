@@ -41,7 +41,7 @@ class QuizzController {
 			return
 		}
 		
-		if (!SecurityUtils.getSubject().hasRole("ROLE_TEACHER")) {
+		if (!SecurityUtils.subject.hasRole("ROLE_TEACHER")) {
 			if (quizzInstance.state == Quizz.STATE_VOTING) {
 				redirect(controller:"vote", action: "show", id: id)
 				return
@@ -56,7 +56,7 @@ class QuizzController {
 	}
 	
 	def onScreen(Long id) {
-		def quizzInstance = Quizz.lock(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -71,7 +71,7 @@ class QuizzController {
 	}
 	
 	def resetVotes(Long id) {
-		def quizzInstance = Quizz.lock(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return

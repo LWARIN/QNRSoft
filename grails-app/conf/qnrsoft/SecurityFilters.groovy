@@ -13,9 +13,9 @@ class SecurityFilters {
     static nonAuthenticatedActions = [
 			[controller: 'quizz', action: 'list'],
 			[controller: 'quizz', action: 'show'],
-			[controller: 'quizz', action: 'vote'],
-			[controller: 'quizz', action: 'submitVote'],
-			[controller: 'quizz', action: 'showStats']
+			[controller: 'vote', action: 'show'],
+			[controller: 'vote', action: 'submit'],
+			[controller: 'stats', action: 'show']
     ]
 
     /**
@@ -26,7 +26,8 @@ class SecurityFilters {
     static authenticatedActions = [
 			[controller: 'quizz', action: '*', roles: ['ROLE_TEACHER']],
 			[controller: 'answer', action: '*', roles: ['ROLE_TEACHER']],
-			[controller: 'answer', action: 'create', roles: ['ROLE_STUDENT']]
+			[controller: 'answer', action: 'create', roles: ['ROLE_STUDENT']],
+			[controller: 'vote', action: '*', roles: ['ROLE_TEACHER']]
     ]
 
     def filters = {

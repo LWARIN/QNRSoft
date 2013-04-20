@@ -142,14 +142,14 @@
 					
 					<quizz:isOpened state="${quizzInstance?.state}">						
 						<shiro:hasRole name="ROLE_TEACHER">
-							<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">Add Answer</g:link>
+							<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id, question: quizzInstance?.question]">Add Answer</g:link>
 							<g:link controller="vote" action="start" id="${quizzInstance?.id}">Start Vote</g:link>
 							<g:if test="${quizzInstance.voteCount > 0}">
 								<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');">Reset Votes</g:link>	
 							</g:if>
 						</shiro:hasRole>
 						<shiro:lacksRole name="ROLE_TEACHER">
-							<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">Suggest Answer</g:link>
+							<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id, question: quizzInstance?.question]">Suggest Answer</g:link>
 						</shiro:lacksRole>
 					</quizz:isOpened>
 					

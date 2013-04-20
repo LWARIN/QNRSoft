@@ -11,7 +11,9 @@ import org.junit.*
 @TestFor(QuizzTagLib)
 class QuizzTagLibTests {
 
-    void testSomething() {
-        fail "Implement me"
-    }
+    void testQuizzStateTag() {
+		assert applyTemplate('<quizz:isOpened state="${state}">${"Salut"}</quizz:isOpened>', [state: Quizz.STATE_OPENED]) == "Salut"
+		assert applyTemplate('<quizz:isVoting state="${state}">${"Salut"}</quizz:isVoting>', [state: Quizz.STATE_OPENED]) == ""
+		assert applyTemplate('<quizz:isClosed state="${state}">${"Salut"}</quizz:isClosed>', [state: Quizz.STATE_CLOSED]) == "Salut"
+	}
 }
