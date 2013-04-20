@@ -69,6 +69,6 @@ class AuthController {
     }
 
     def unauthorized = {
-        render (view: "/error.gsp")
+        redirect(uri: '/forbidden')
     }
 }

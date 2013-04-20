@@ -4,8 +4,12 @@ class VoteController {
 
     def show(Long id) {
 		def quizzInstance = Quizz.get(id)
-		if (!quizzInstance || quizzInstance.state != Quizz.STATE_VOTING || !quizzInstance.onScreen) {
-			render(view: "/error.gsp")
+		if (!quizzInstance) {
+			redirect(uri: '/notFound')
+			return
+		}
+		if (quizzInstance.state != Quizz.STATE_VOTING || !quizzInstance.onScreen) {
+			redirect(uri: '/forbidden')
 			return
 		}
 		
@@ -39,7 +43,7 @@ class VoteController {
 		def quizzInstance = Quizz.get(id)
 		
 		if (!quizzInstance) {
-			render(view: "/error.gsp")
+			redirect(uri: '/notFound')
 			return
 		}
 		
@@ -59,7 +63,7 @@ class VoteController {
 		def quizzInstance = Quizz.get(id)
 		
 		if (!quizzInstance) {
-			render(view: "/error.gsp")
+			redirect(uri: '/notFound')
 			return
 		}
 		
@@ -79,7 +83,7 @@ class VoteController {
 		def quizzInstance = Quizz.get(id)
 		
 		if (!quizzInstance) {
-			render(view: "/error.gsp")
+			redirect(uri: '/notFound')
 			return
 		}
 		

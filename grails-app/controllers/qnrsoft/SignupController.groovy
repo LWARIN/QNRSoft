@@ -14,8 +14,8 @@ class SignupController {
 	def register() {
 		
 		if (SecurityUtils.subject.isAuthenticated()) {
-			flash.error = "You are already logged in."
-			render(view: '/index.gsp')
+			flash.message = "You are already logged in."
+			redirect(uri: '/')
 			return
 		}
 		

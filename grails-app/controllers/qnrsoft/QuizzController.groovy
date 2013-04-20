@@ -37,11 +37,7 @@ class QuizzController {
 	def show(Long id) {
 		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [
-				message(code: 'quizz.label', default: 'Quizz'),
-				id
-			])
-			redirect(action: "list")
+			redirect(uri: '/notFound')
 			return
 		}
 		
@@ -62,7 +58,7 @@ class QuizzController {
 	def onScreen(Long id) {
 		def quizzInstance = Quizz.lock(id)
 		if (!quizzInstance) {
-			render(view: "/error.gsp")
+			redirect(uri: '/notFound')
 			return
 		}
 		
@@ -77,7 +73,7 @@ class QuizzController {
 	def resetVotes(Long id) {
 		def quizzInstance = Quizz.lock(id)
 		if (!quizzInstance) {
-			render(view: "/error.gsp")
+			redirect(uri: '/notFound')
 			return
 		}		
 		
@@ -100,7 +96,7 @@ class QuizzController {
 				message(code: 'quizz.label', default: 'Quizz'),
 				id
 			])
-			redirect(action: "list")
+			redirect(uri: '/notFound')
 			return
 		}
 
@@ -114,7 +110,7 @@ class QuizzController {
 				message(code: 'quizz.label', default: 'Quizz'),
 				id
 			])
-			redirect(action: "list")
+			redirect(uri: '/notFound')
 			return
 		}
 
@@ -150,7 +146,7 @@ class QuizzController {
 				message(code: 'quizz.label', default: 'Quizz'),
 				id
 			])
-			redirect(action: "list")
+			redirect(uri: '/notFound')
 			return
 		}
 

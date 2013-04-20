@@ -7,8 +7,13 @@ class StatsController {
 
     def show(Long id) {
 		def quizzInstance = Quizz.get(id)
-		if (!quizzInstance || (!quizzInstance.onScreen && !SecurityUtils.getSubject().hasRole("ROLE_TEACHER"))) {
-			render(view: "/error.gsp")
+		if (!quizzInstance) {
+			redirect(uri: '/notFound')
+			return
+		}
+		
+		if (!quizzInstance.onScreen && !SecurityUtils.getSubject().hasRole("ROLE_TEACHER")) {
+			redirect(uri: '/forbidden')
 			return
 		}
 		

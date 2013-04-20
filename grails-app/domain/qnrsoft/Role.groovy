@@ -7,6 +7,6 @@ class Role {
     static belongsTo = User
 
     static constraints = {
-        name(nullable: false, blank: false, unique: true)
+        name blank: false, unique: true
     }
 }

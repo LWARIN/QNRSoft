@@ -35,7 +35,7 @@ class BootStrap {
 				.save(flush: true, failOnError: true)
 		
 		def quizz1 = new Quizz(question : "Combien font 2+2 ?",
-			onScreen : true, state : Quizz.STATE_VOTING, voteCount: 80)
+			onScreen : true, state : Quizz.STATE_CLOSED, voteCount: 80)
 		
 		if(!quizz1.save()) {
 			quizz1.errors.allErrors.each{error ->
