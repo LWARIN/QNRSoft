@@ -13,7 +13,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list">Quizz List</g:link></li>
-				<li><g:link class="create" action="create">New Quizz</g:link></li>
+				<shiro:hasRole name="ROLE_TEACHER"><li><g:link class="create" action="create">New Quizz</g:link></li></shiro:hasRole>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut">Logout: <shiro:principal/></g:link></li></shiro:isLoggedIn>
 				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login" params="[targetUri: '/quizz/show/' + quizzInstance?.id]"><g:message code="default.signin.label" default="Sign in" /></g:link></li></shiro:isNotLoggedIn>
 			</ul>
@@ -36,33 +36,33 @@
 					
 				</li>
 				</g:if>
-	<shiro:hasRole name="ROLE_TEACHER">		
-				<li class="fieldcontain">
-					<span id="onScreen-label" class="property-label"><g:message code="quizz.onScreen.label" default="On Screen" /></span>
-					
-					<span class="property-value" aria-labelledby="onScreen-label"><g:formatBoolean boolean="${quizzInstance?.onScreen}" /></span>
-					
-				</li>
-		
+				<shiro:hasRole name="ROLE_TEACHER">		
+					<li class="fieldcontain">
+						<span id="onScreen-label" class="property-label"><g:message code="quizz.onScreen.label" default="On Screen" /></span>
+						
+						<span class="property-value" aria-labelledby="onScreen-label"><g:formatBoolean boolean="${quizzInstance?.onScreen}" /></span>
+						
+					</li>
 			
-				<g:if test="${quizzInstance?.state}">
-				<li class="fieldcontain">
-					<span id="state-label" class="property-label"><g:message code="quizz.state.label" default="State" /></span>
-					
-					<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="state"/></span>
-					
-				</li>
-				</g:if>
 				
-				<g:if test="${quizzInstance?.voteCount != null}">
-				<li class="fieldcontain">
-					<span id="voteCount-label" class="property-label"><g:message code="quizz.voteCount.label" default="Total Votes" /></span>
+					<g:if test="${quizzInstance?.state}">
+					<li class="fieldcontain">
+						<span id="state-label" class="property-label"><g:message code="quizz.state.label" default="State" /></span>
+						
+						<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="state"/></span>
+						
+					</li>
+					</g:if>
 					
-					<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="voteCount"/></span>
-					
-				</li>
-				</g:if>
-			</shiro:hasRole>	
+					<g:if test="${quizzInstance?.voteCount != null}">
+					<li class="fieldcontain">
+						<span id="voteCount-label" class="property-label"><g:message code="quizz.voteCount.label" default="Total Votes" /></span>
+						
+						<span class="property-value" aria-labelledby="state-label"><g:fieldValue bean="${quizzInstance}" field="voteCount"/></span>
+						
+					</li>
+					</g:if>
+				</shiro:hasRole>	
 				<g:if test="${quizzInstance?.answers}">
 				<shiro:hasRole name="ROLE_TEACHER">
 				<li class="fieldcontain">
@@ -134,14 +134,17 @@
 						</g:else>
 					</shiro:hasRole>
 					
-					<quizz:isOpened state="${quizzInstance?.state}">
-						<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">Add Answer</g:link>
+					<quizz:isOpened state="${quizzInstance?.state}">						
 						<shiro:hasRole name="ROLE_TEACHER">
+							<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">Add Answer</g:link>
 							<g:link controller="vote" action="start" id="${quizzInstance?.id}">Start Vote</g:link>
 							<g:if test="${quizzInstance.voteCount > 0}">
 								<g:link action="resetVotes" id="${quizzInstance?.id}" onclick="return confirm('Do you really want to reset all the votes?');">Reset Votes</g:link>	
 							</g:if>
 						</shiro:hasRole>
+						<shiro:lacksRole name="ROLE_TEACHER">
+							<g:link class="attach" controller="answer" action="create" params="['quizz.id': quizzInstance?.id]">Suggest Answer</g:link>
+						</shiro:lacksRole>
 					</quizz:isOpened>
 					
 					<quizz:isVoting state="${quizzInstance?.state}">

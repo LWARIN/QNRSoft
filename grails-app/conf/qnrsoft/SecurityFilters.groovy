@@ -25,7 +25,8 @@ class SecurityFilters {
      */
     static authenticatedActions = [
 			[controller: 'quizz', action: '*', roles: ['ROLE_TEACHER']],
-			[controller: 'answer', action: '*', roles: ['ROLE_TEACHER', 'ROLE_STUDENT']]
+			[controller: 'answer', action: '*', roles: ['ROLE_TEACHER']],
+			[controller: 'answer', action: 'create', roles: ['ROLE_STUDENT']]
     ]
 
     def filters = {

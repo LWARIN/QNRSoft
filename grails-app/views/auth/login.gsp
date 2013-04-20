@@ -31,8 +31,8 @@
 		
 			<input type="hidden" name="targetUri" value="${targetUri}" />
 
-			<label for="username">Username:</label> 
-			<input type="name" name="username" value="${username}"/>
+			<label for="username">Email:</label> 
+			<input type="email" name="username" value="${username}"/>
 			 
 			<label for="password">Password:</label>
 			<input type="password" name="password" value=""/>

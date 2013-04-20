@@ -14,7 +14,6 @@
 				
 				<shiro:hasRole name="ROLE_TEACHER">
 					<li><g:link class="create" action="create">New Quizz</g:link></li>
-					<li><g:link class="list" controller="answer" action="list">Answer List</g:link></li>
 				</shiro:hasRole>
 				
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut">Logout: <shiro:principal/></g:link></li></shiro:isLoggedIn>

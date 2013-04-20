@@ -35,8 +35,8 @@
 
 		<g:form action="register">
 
-			<label for="username">Username:</label> 
-			<input type="name" name="username" value="${user.username}"/>
+			<label for="username">Email:</label> 
+			<input type="email" name="username" value="${user.username}"/>
 			 
 			<label for="password">Password:</label>
 			<input type="password" name="password" value=""/>

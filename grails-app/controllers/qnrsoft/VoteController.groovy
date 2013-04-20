@@ -48,7 +48,6 @@ class VoteController {
 		}
 		else {
 			quizzInstance.state = Quizz.STATE_OPENED
-			//TODO save cascade
 			quizzInstance.save()
 			flash.message = "Quizz state set to 'Opened'."
 		}
@@ -69,7 +68,6 @@ class VoteController {
 		}
 		else {
 			quizzInstance.state = Quizz.STATE_VOTING
-			//TODO save cascade
 			quizzInstance.save()
 			flash.message = "Quizz state set to 'Voting'"
 		}
@@ -90,7 +88,6 @@ class VoteController {
 		}
 		else {
 			quizzInstance.state = Quizz.STATE_CLOSED
-			//TODO save cascade
 			quizzInstance.save()
 			flash.message = "Voting phase over."
 		}

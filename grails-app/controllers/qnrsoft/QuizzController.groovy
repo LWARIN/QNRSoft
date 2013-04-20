@@ -60,32 +60,34 @@ class QuizzController {
 	}
 	
 	def onScreen(Long id) {
-		def quizzInstance = Quizz.get(id)
+		def quizzInstance = Quizz.lock(id)
 		if (!quizzInstance) {
 			render(view: "/error.gsp")
 			return
 		}
 		
 		quizzInstance.onScreen = !quizzInstance.onScreen
+		quizzInstance.save()
 		
+		flash.message = "The quizz is now " +
+			(quizzInstance.onScreen ? "visible" : "hidden") + " for students."
 		redirect(action: "show", id: id)
 	}
 	
 	def resetVotes(Long id) {
-		def quizzInstance = Quizz.get(id)
+		def quizzInstance = Quizz.lock(id)
 		if (!quizzInstance) {
 			render(view: "/error.gsp")
 			return
-		}
-		
-		//TODO cascade ?
-		quizzInstance.voteCount = 0;
-		quizzInstance.save()
+		}		
 		
 		for (Answer answer : quizzInstance.answers) {
 			answer.voteCount = 0
-			answer.save()
 		}
+		quizzInstance.voteCount = 0;
+		
+		// Sauvegarde des réponses en cascade		
+		quizzInstance.save()
 		
 		flash.message = "The votes for this quizz have been reset."
 		redirect(action: "show", id: id)

@@ -8,26 +8,25 @@ class BootStrap {
 	def shiroSecurityService
 
     def init = { servletContext ->		
-		/*
+		
 		
 		// Create the admin role
-		def teacherRole = Role.findByName('ROLE_TEACHER') ?:
-			new Role(name: 'ROLE_TEACHER').save(flush: true, failOnError: true)
+		def teacherRole = new Role(name: 'ROLE_TEACHER').save(flush: true, failOnError: true)
 
 		// Create an admin user
 		def adminUser = User.findByUsername('admin') ?:
-			new User(username: "admin",
+			new User(username: "admin@qnr.fr",
 					passwordHash: shiroSecurityService.encodePassword('password'))
 					.save(flush: true, failOnError: true)
 					
-		def studentRole = new Role(name: 'ROLE_STUDENT').save(flosh: true, failOnError: true)
+		def studentRole = new Role(name: 'ROLE_STUDENT').save(flush: true, failOnError: true)
 
 		// Add roles to the admin user
 		assert adminUser.addToRoles(teacherRole)
 				.save(flush: true, failOnError: true)
 		
 		def quizz1 = new Quizz(question : "Combien font 2+2 ?",
-			onScreen : true, state : Quizz.STATE_VOTING)
+			onScreen : true, state : Quizz.STATE_VOTING, voteCount: 80)
 		
 		if(!quizz1.save()) {
 			quizz1.errors.allErrors.each{error ->
@@ -43,13 +42,13 @@ class BootStrap {
 		}
 		
 		def answer1 = new Answer(answer : "Je dirais que ca fait 4",
-			status : Answer.STATUS_APPROVED, validity : Answer.VALIDITY_CORRECT, comment : "")
+			status : Answer.STATUS_APPROVED, validity : Answer.VALIDITY_CORRECT, comment : "", voteCount: 75)
 		
 		def answer2 = new Answer(answer : "5 pour moi",
 			status : Answer.STATUS_PENDING, validity : Answer.VALIDITY_PENDING, comment : "")
 		
 		def answer3 = new Answer(answer : "Obviously ca fait 32",
-			status : Answer.STATUS_APPROVED, validity : Answer.VALIDITY_WRONG, comment : "")
+			status : Answer.STATUS_APPROVED, validity : Answer.VALIDITY_WRONG, comment : "", voteCount: 19)
 		
 		def answer4 = new Answer(answer : "Ah j'etais a 724 moi",
 			status : Answer.STATUS_REJECTED, validity : Answer.VALIDITY_PENDING, comment : "")
@@ -59,7 +58,7 @@ class BootStrap {
 		quizz1.addToAnswers(answer3)
 		quizz1.addToAnswers(answer4)
 		
-		*/
+		
     }
     def destroy = {
     }

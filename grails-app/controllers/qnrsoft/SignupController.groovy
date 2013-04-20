@@ -19,37 +19,32 @@ class SignupController {
 			return
 		}
 		
-		if (params.username.length() < 2 || params.username.length() > 10) {
+		/*if (params.username.length() < 2 || params.username.length() > 10) {
 			flash.error = "The username must contain between 2 and 10 characters."
 			redirect(action: 'index')
 			return
-		}
+		}*/
 		
-		if (params.password.length() < 2 || params.passwordConf.length() < 2) {
+		if (params.password.length() < 2) {
 			flash.error = "The password must contain at least 2 characters."
 			redirect(action: 'index')
 			return
 		}
 
-		// Check to see if the username already exists
 		def user = User.findByUsername(params.username)
 		if (user) {
 			flash.error = "The username '${params.username}' is not available."
 			redirect(action: 'index')
 			return
 		}
-
-		// User doesn't exist with username. Let's create one
 		else {
 
-			// Make sure the passwords match
+			// Check passwords match
 			if (params.password != params.passwordConf) {
 				flash.error = "Passwords do not match."
 				redirect(action: 'index')
 				return
 			}
-
-			// Passwords match. Let's attempt to save the user
 			else {
 				// Create user
 				user = new User(
@@ -59,7 +54,7 @@ class SignupController {
 
 				if (user.save()) {
 
-					// Add USER role to new user
+					// Add STUDENT role to new user
 					user.addToRoles(Role.findByName('ROLE_STUDENT'))
 
 					// Login user

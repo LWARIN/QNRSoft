@@ -18,7 +18,6 @@ class AuthController {
     def signIn = {
         def authToken = new UsernamePasswordToken(params.username, params.password as String)
 
-        // Support for "remember me"
         if (params.rememberMe) {
             authToken.rememberMe = true
         }
@@ -27,7 +26,6 @@ class AuthController {
         // to it. Otherwise redirect to the root URI.
         def targetUri = params.targetUri ?: "/"
         
-        // Handle requests saved by Shiro filters.
         def savedRequest = WebUtils.getSavedRequest(request)
         if (savedRequest) {
             targetUri = savedRequest.requestURI - request.contextPath
@@ -35,9 +33,6 @@ class AuthController {
         }
         
         try{
-            // Perform the actual login. An AuthenticationException
-            // will be thrown if the username is unrecognised or the
-            // password is incorrect.
             SecurityUtils.subject.login(authToken)
 
             log.info "Redirecting to '${targetUri}'."
@@ -45,8 +40,6 @@ class AuthController {
             redirect(uri: targetUri)
         }
         catch (AuthenticationException ex){
-            // Authentication failed, so display the appropriate message
-            // on the login page.
             log.info "Authentication failure for user '${params.username}'."
             flash.error = message(code: "login.failed")
 
@@ -57,12 +50,12 @@ class AuthController {
                 m["rememberMe"] = true
             }
 
-            // Remember the target URI too.
+            // Remember the target URI.
             if (params.targetUri) {
                 m["targetUri"] = params.targetUri
             }
 
-            // Now redirect back to the login page.
+            // Redirect back to the login page.
             redirect(action: "login", params: m)
         }
     }
