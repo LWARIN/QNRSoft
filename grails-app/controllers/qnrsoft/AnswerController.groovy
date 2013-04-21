@@ -5,7 +5,6 @@ import org.springframework.dao.DataIntegrityViolationException
 class AnswerController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-	def answerService
 
     def index() {
         redirect(action: "list", params: params)
@@ -32,7 +31,7 @@ class AnswerController {
     }
 
     def show(Long id) {
-        def answerInstance = answerService.retrieveAnswer(id)
+        def answerInstance = Answer.get(id)
         if (!answerInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'answer.label', default: 'Answer'), id])
             redirect(uri: '/notFound')
@@ -43,7 +42,7 @@ class AnswerController {
     }
 
     def edit(Long id) {
-        def answerInstance = answerService.retrieveAnswer(id)
+        def answerInstance = Answer.get(id)
         if (!answerInstance) {
             flash.error = message(code: 'default.not.found.message', args: [message(code: 'answer.label', default: 'Answer'), id])
             redirect(uri: '/notFound')
@@ -54,7 +53,7 @@ class AnswerController {
     }
 
     def update(Long id, Long version) {
-        def answerInstance = answerService.retrieveAnswer(id)
+        def answerInstance = Answer.get(id)
         if (!answerInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'answer.label', default: 'Answer'), id])
             redirect(uri: '/notFound')
@@ -83,7 +82,7 @@ class AnswerController {
     }
 
     def delete(Long id) {
-        def answerInstance = answerService.retrieveAnswer(id)
+        def answerInstance = Answer.get(id)
         if (!answerInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'answer.label', default: 'Answer'), id])
             redirect(uri: "/notFound")

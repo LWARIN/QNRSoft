@@ -6,7 +6,6 @@ import org.apache.shiro.SecurityUtils
 class QuizzController {
 
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-	def quizzService
 
 	def index() {
 		redirect(action: "list", params: params)
@@ -36,7 +35,7 @@ class QuizzController {
 	}
 
 	def show(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -57,7 +56,7 @@ class QuizzController {
 	}
 	
 	def onScreen(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -72,7 +71,7 @@ class QuizzController {
 	}
 	
 	def resetVotes(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -88,7 +87,7 @@ class QuizzController {
 	}
 
 	def edit(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [
 				message(code: 'quizz.label', default: 'Quizz'),
@@ -138,7 +137,7 @@ class QuizzController {
 	}
 
 	def delete(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [
 				message(code: 'quizz.label', default: 'Quizz'),

@@ -1,11 +1,9 @@
 package qnrsoft
 
 class VoteController {
-	
-	def quizzService
 
     def show(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -19,7 +17,7 @@ class VoteController {
 	}	
 	
 	def submit(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -46,7 +44,7 @@ class VoteController {
 	}
 	
 	def reopen(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -65,7 +63,7 @@ class VoteController {
 	}
 	
 	def start(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -84,7 +82,7 @@ class VoteController {
 	}
 	
 	def end(Long id) {
-		def quizzInstance = quizzService.retrieveQuizz(id)
+		def quizzInstance = Quizz.get(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
