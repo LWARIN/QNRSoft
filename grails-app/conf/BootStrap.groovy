@@ -7,22 +7,23 @@ class BootStrap {
 	
 	def shiroSecurityService
 
-    def init = { servletContext ->		
-		
+    def init = { servletContext ->	
 		
 		// Create the admin role
-		def teacherRole = new Role(name: 'ROLE_TEACHER').save(flush: true, failOnError: true)		
+		def teacherRole = Role.findByName('ROLE_TEACHER') ?: 
+			new Role(name: 'ROLE_TEACHER').save(flush: true, failOnError: true)		
 					
-		def studentRole = new Role(name: 'ROLE_STUDENT').save(flush: true, failOnError: true)
+		def studentRole = Role.findByName('ROLE_STUDENT') ?:
+			new Role(name: 'ROLE_STUDENT').save(flush: true, failOnError: true)
 		
 		// Create an admin user
-		def adminUser = User.findByUsername('admin') ?:
+		def adminUser = User.findByUsername('admin@qnr.fr') ?:
 			new User(username: "admin@qnr.fr",
 					passwordHash: shiroSecurityService.encodePassword('password'))
 					.save(flush: true, failOnError: true)
 					
 		// Create an admin user
-		def studUser = User.findByUsername('student') ?:
+		def studUser = User.findByUsername('student@qnr.fr') ?:
 			new User(username: "student@qnr.fr",
 					passwordHash: shiroSecurityService.encodePassword('password'))
 					.save(flush: true, failOnError: true)
@@ -31,7 +32,7 @@ class BootStrap {
 		assert adminUser.addToRoles(teacherRole)
 				.save(flush: true, failOnError: true)
 				
-		assert studUser.addToRoles(studentRole)
+		/*assert studUser.addToRoles(studentRole)
 				.save(flush: true, failOnError: true)
 		
 		def quizz1 = new Quizz(question : "Combien font 2+2 ?",
@@ -74,7 +75,7 @@ class BootStrap {
 		quizz1.addToAnswers(answer2)
 		quizz1.addToAnswers(answer3)
 		quizz1.addToAnswers(answer4)
-		
+		*/
 		
     }
     def destroy = {

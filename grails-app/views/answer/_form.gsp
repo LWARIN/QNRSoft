@@ -1,9 +1,7 @@
 <%@ page import="qnrsoft.Answer" %>
 
 <div class="fieldcontain">
-	<label>
-		Question
-	</label>
+	<label>Question</label>
 	<g:fieldValue bean="${answerInstance.quizz}" field="question"/>
 </div>
 
@@ -14,6 +12,7 @@
 	</label>
 	<g:textArea name="answer" required="" value="${answerInstance?.answer}"/>
 </div>
+
 <shiro:hasRole name="ROLE_TEACHER">
 	<div class="fieldcontain ${hasErrors(bean: answerInstance, field: 'status', 'error')} required">
 		<label for="status">

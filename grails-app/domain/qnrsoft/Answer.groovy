@@ -33,4 +33,8 @@ class Answer {
 		comment blank: true
 		grade blank: true, range: -1..10
 	}
+	
+	void resetVoteCount() {
+		voteCount = 0;
+	}
 }

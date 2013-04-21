@@ -15,7 +15,7 @@
 				<shiro:hasRole name="ROLE_TEACHER"><li><g:link class="back" controller="quizz" action="show" id="${quizzInstance?.id}">Back to Quizz</g:link></li></shiro:hasRole>
 				<li><g:link class="list" controller="quizz" action="list">Quizz List</g:link></li>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut">Logout: <shiro:principal/></g:link></li></shiro:isLoggedIn>
-				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login" params="[targetUri: '/vote/show/' + quizzInstance?.id]"><g:message code="default.signin.label" default="Sign in" /></g:link></li></shiro:isNotLoggedIn>
+				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login" params="[targetUri: '/vote/show/' + quizzInstance?.id]">Sign in</g:link></li></shiro:isNotLoggedIn>
 			</ul>
 		</div>
 		<div id="show-quizz" class="content scaffold-show" role="main">
@@ -44,9 +44,9 @@
 						<span id="answers-label" class="property-label">Answers</span>
 						
 						<g:each in="${quizzInstance.answers}" var="a">
-						<g:if test="${a.status == Answer.STATUS_APPROVED}">
-							<span class="property-value-checkbox" aria-labelledby="answers-label"><g:checkBox name="checkAnswers" value="${a.id}" checked="false"/> ${a.answer}</span>
-						</g:if>						
+							<answer:isApproved status="${a.status}">
+								<span class="property-value-checkbox" aria-labelledby="answers-label"><g:checkBox name="checkAnswers" value="${a.id}" checked="false"/> ${a.answer}</span>
+							</answer:isApproved>		
 						</g:each>
 						
 					</li>
@@ -56,9 +56,8 @@
 				</ol>
 			
 				<shiro:lacksRole name="ROLE_TEACHER">
-					<!-- TODO code ?? -->
 					<fieldset class="buttons">
-						<!-- On a besoin du hiddenField qui sert de parametre a la methode submitVote -->
+						<%-- On a besoin du hiddenField qui sert de parametre a la methode submitVote --%>
 						<g:hiddenField name="id" value="${quizzInstance?.id}" />
 						<g:actionSubmit value="Submit Vote" class="submit" action="submit" onclick="return confirm('${message(code: 'default.button.submit.confirm.message', default: 'Really submit your vote?')}');" />
 					</fieldset>

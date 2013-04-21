@@ -15,7 +15,7 @@
 				<li><g:link class="list" action="list">Quizz List</g:link></li>
 				<shiro:hasRole name="ROLE_TEACHER"><li><g:link class="create" action="create">New Quizz</g:link></li></shiro:hasRole>
 				<shiro:isLoggedIn><li class="log"><g:link controller="auth" action="signOut">Logout: <shiro:principal/></g:link></li></shiro:isLoggedIn>
-				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login" params="[targetUri: '/quizz/show/' + quizzInstance?.id]"><g:message code="default.signin.label" default="Sign in" /></g:link></li></shiro:isNotLoggedIn>
+				<shiro:isNotLoggedIn><li class="log"><g:link controller="auth" action="login" params="[targetUri: '/quizz/show/' + quizzInstance?.id]">Sign in</g:link></li></shiro:isNotLoggedIn>
 			</ul>
 		</div>
 		<div id="show-quizz" class="content scaffold-show" role="main">

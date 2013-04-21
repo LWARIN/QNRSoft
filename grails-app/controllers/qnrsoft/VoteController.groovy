@@ -1,9 +1,11 @@
 package qnrsoft
 
 class VoteController {
+	
+	def quizzService
 
     def show(Long id) {
-		def quizzInstance = Quizz.get(id)
+		def quizzInstance = quizzService.retrieveQuizz(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -17,7 +19,7 @@ class VoteController {
 	}	
 	
 	def submit(Long id) {
-		def quizzInstance = Quizz.get(id)
+		def quizzInstance = quizzService.retrieveQuizz(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -30,22 +32,21 @@ class VoteController {
 			flash.error = "You have to select at least one answer."
 			redirect(action: "show", id: id)
 			return
+		}		
+		
+		for (Answer answer : selectedAnswers) {
+			answer.voteCount++
 		}
 		
 		quizzInstance.voteCount++
 		quizzInstance.save()
-		
-		for (Answer answer : selectedAnswers) {
-			answer.voteCount++
-			answer.save()
-		}
 		
 		flash.message = "Vote accepted."
 		redirect(controller:"quizz", action: "list")
 	}
 	
 	def reopen(Long id) {
-		def quizzInstance = Quizz.get(id)		
+		def quizzInstance = quizzService.retrieveQuizz(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -64,7 +65,7 @@ class VoteController {
 	}
 	
 	def start(Long id) {
-		def quizzInstance = Quizz.get(id)		
+		def quizzInstance = quizzService.retrieveQuizz(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
@@ -83,7 +84,7 @@ class VoteController {
 	}
 	
 	def end(Long id) {
-		def quizzInstance = Quizz.get(id)		
+		def quizzInstance = quizzService.retrieveQuizz(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return

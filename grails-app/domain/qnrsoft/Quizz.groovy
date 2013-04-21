@@ -23,4 +23,11 @@ class Quizz {
 		]
 	}
 	
+	void resetVoteCount() {
+		voteCount = 0;
+		for (Answer a : answers) {
+			a.resetVoteCount()
+		}
+	}
+	
 }

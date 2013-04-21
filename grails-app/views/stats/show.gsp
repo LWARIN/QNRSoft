@@ -29,7 +29,9 @@
 			</g:if>
 			
 			<shiro:hasRole name="ROLE_TEACHER">
-				<gvisualization:pieCoreChart elementId="piechart" title="${quizzInstance.question + " (" + (quizzInstance.voteCount as String) + " votes)"}" width="${750}" height="${600}" columns="${columns}" data="${data}" />
+				<gvisualization:pieCoreChart elementId="piechart"
+					title="${quizzInstance.question + " (" + (quizzInstance.voteCount as String) + " votes)"}"
+					width="${750}" height="${600}" columns="${columns}" data="${data}" />
 			
 				<span style="display: block; margin-left: 15%"><div id="piechart"></div></span>
 			</shiro:hasRole>
@@ -51,7 +53,7 @@
 					</li>
 				</g:each>
 				
-				<h1 style="margin-top:50px">Rejected Answers</h1>
+				<h1 style="margin-top: 50px">Rejected Answers</h1>
 				<g:each in="${rejected}" var="rej">
 					<li class="fieldcontain">
 						<span id="answers-label" class="property-label">${rej.answer}</span>

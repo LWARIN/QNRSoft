@@ -4,9 +4,11 @@ import org.springframework.dao.DataIntegrityViolationException
 import org.apache.shiro.SecurityUtils
 
 class StatsController {
+	
+	def quizzService
 
     def show(Long id) {
-		def quizzInstance = Quizz.get(id)
+		def quizzInstance = quizzService.retrieveQuizz(id)
 		if (!quizzInstance) {
 			redirect(uri: '/notFound')
 			return
